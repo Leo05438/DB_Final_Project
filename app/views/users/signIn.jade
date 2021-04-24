@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  form(name='signIn',action='/apis/singIn',method='post')
+    label(for='name') user
+    input(type='text',name='user',placeholder='user')
+    label(for='name') password
+    input(type='text',name='password',placeholder='password')
+    input(type='submit',name='submit',value='signIn')

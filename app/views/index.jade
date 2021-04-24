@@ -3,3 +3,5 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form(name='signOut',action='/apis/singOut',method='post')
+    input(type='submit',name='submit',value='signOut')

@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
   if(!req.session.signIned){
-    res.redirect('/users/signIn');
+    res.render('index_unSignIn');
     return;
   }
   res.render('index',{title:'Express'});

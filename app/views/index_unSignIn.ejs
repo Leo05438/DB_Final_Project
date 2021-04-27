@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>index</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+			<div id="wrapper">
+
+					<header id="header">
+						<div class="logo">
+							<i class="fa fa-book-open fa-2x" style="line-height: inherit"></i>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>Anime</h1>
+								<p>好油</p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+                <li><a href="#about">About</a></li>
+								<li><a href="#signIn">Sign In</a></li>
+								<li><a href="#register">Register</a></li>
+							</ul>
+						</nav>
+					</header>
+
+					<div id="main">
+
+							<article id="about">
+								<h2 class="major">About</h2>
+								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+								<p>好油</p>
+							</article>
+
+							<article id="signIn">
+								<h2 class="major">Sign In</h2>
+                <form name="signIn" method="post" action="/apis/signIn" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="user">user</label>
+                      <input type="text" name="user" placeholder="user" id="user">
+										</div>
+										<div class="field half">
+                      <label for="password">password</label>
+                      <input type='text' name='password' placeholder='password' id="password">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" name='submit' value='signIn' class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="register">
+								<h2 class="major">Register</h2>
+                <form name="register" method="post" action="/apis/register" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="user">user</label>
+                      <input type="text" name="user" placeholder="user" id="user">
+										</div>
+										<div class="field half">
+                      <label for="password">password</label>
+                      <input type='text' name='password' placeholder='password' id="password">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" name='submit' value='register' class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+									</ul>
+								</form>
+							</article>
+
+					</div>
+          <footer id="footer">
+          </footer>
+
+			</div>
+
+			<div id="bg"></div>
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

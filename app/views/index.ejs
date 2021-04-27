@@ -1,14 +1,81 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <form name='signOut' method="post" action="/apis/signOut">
-      <input type='submit' name='submit' value='signOut'>
-    </form>
-  </body>
+	<head>
+		<title>index</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+			<div id="wrapper">
+
+					<header id="header">
+						<div class="logo">
+							<i class="fa fa-book-open fa-2x" style="line-height: inherit"></i>
+						</div>
+						<div class="content">
+							<div class="inner">
+								<h1>Anime</h1>
+								<p>好油</p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+                <li><a href="#about">about</a></li>
+								<li><a href="#userInfo">user info</a></li>
+								<li><a href="#recommend">recommend</a></li>
+                <li><a href="#search">search</a></li>
+                <li><a href="#signOut">sign out</a></li>
+							</ul>
+						</nav>
+					</header>
+
+					<div id="main">
+
+							<article id="about">
+								<h2 class="major">About</h2>
+								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+								<p>好油</p>
+							</article>
+
+							<article id="userInfo">
+								<h2 class="major">user info</h2>
+							</article>
+
+              <article id="signOut">
+								<h2 class="major">sign out</h2>
+                <p>Are you sure?</p>
+                <form name="signIn" method="post" action="/apis/signOut" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" name='yes' value='Yes' class="primary"></li>
+                    <li><input type="submit" name='no' value='No'></li>
+									</ul>
+								</form>
+							</article>
+
+					</div>
+          <footer id="footer">
+            <article id="recommend">
+							<h2 class="major">recommendation</h2>
+							<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+						</article>
+            <article id="search" style="margin-top: 35rem;">
+							<h2 class="major">search</h2>
+							<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+						</article>
+          </footer>
+
+			</div>
+
+			<div id="bg"></div>
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>

@@ -18,7 +18,7 @@
 						<div class="content">
 							<div class="inner">
 								<h1>Anime</h1>
-								<p>好油</p>
+								<p>好油喔</p>
 							</div>
 						</div>
 						<nav>
@@ -35,7 +35,7 @@
 							<article id="about">
 								<h2 class="major">About</h2>
 								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<p>好油</p>
+								<p>好油喔</p>
 							</article>
 
 							<article id="signIn">
@@ -54,6 +54,12 @@
 									<ul class="actions">
 										<li><input type="submit" name='submit' value='signIn' class="primary"></li>
 										<li><input type="reset" value="Reset"></li>
+										<%if(errorType==2){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+										<%if(errorType==4){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">wrong password</label></li>
+										<%}%>
 									</ul>
 								</form>
 							</article>
@@ -74,6 +80,15 @@
 									<ul class="actions">
 										<li><input type="submit" name='submit' value='register' class="primary"></li>
 										<li><input type="reset" value="Reset"></li>
+										<%if(errorType==0){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+										<%if(errorType==1){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">username has been used</label></li>
+										<%}%>
+										<%if(errorType==3){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">user not exist</label></li>
+										<%}%>
 									</ul>
 								</form>
 							</article>

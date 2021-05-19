@@ -8,7 +8,10 @@ router.get('/', function(req, res, next) {
     res.render('index_unSignIn',{errorType:errorType});
     return;
   }
-  res.render('index',{title:'Express'});
+  req.con.query('SELECT * FROM userPassword WHERE user=?',req.session.user,function(err,rows){
+    //user not exist
+    res.render('index',{data:rows});
+  });
 });
 
 module.exports = router;

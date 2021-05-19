@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>index</title>
+		<title>Anime</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -42,6 +42,18 @@
 
 							<article id="userInfo">
 								<h2 class="major">user info</h2>
+								<form name="signIn" method="post" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="user">user</label>
+                      <input type="text" name="user" placeholder=<%=data[0].user%> id="user" disabled>
+										</div>
+										<div class="field half">
+                      <label for="password">password</label>
+                      <input type='text' name='password' placeholder=<%=data[0].password%> id="password" disabled>
+										</div>
+									</div>
+								</form>
 							</article>
 
               <article id="signOut">
@@ -60,14 +72,14 @@
             <article id="recommend">
 							<h2 class="major">recommendation</h2>
               <ul class="actions">
-                <li><a href="#" class="button">top</a></li>
+                <li><a href="#" class="button">main page</a></li>
               </ul>
 							<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
 						</article>
             <article id="search" style="margin-top: 35rem;">
 							<h2 class="major">search</h2>
               <ul class="actions">
-                <li><a href="#" class="button">top</a></li>
+                <li><a href="#" class="button">main page</a></li>
               </ul>
 							<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
 						</article>

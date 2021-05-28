@@ -1,5 +1,3 @@
-# Database name = finalProject
-
 CREATE TABLE AnimeList9(
 	anime_id INT,
 	title varchar(1000),
@@ -17,7 +15,7 @@ CREATE TABLE AnimeList9(
 	duration varchar(30),
 	rating varchar(50),
 	score float,
-	score_by int, 
+	score_by int,
 	`rank` int,
 	popularity int,
 	members int,

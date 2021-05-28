@@ -69,12 +69,33 @@
                 <form name="register" method="post" action="/apis/register" autocomplete="off">
 									<div class="fields">
 										<div class="field half">
-                      <label for="user">user</label>
-                      <input type="text" name="user" placeholder="user" id="user">
+	                    <label for="user">user</label>
+	                    <input type="text" name="user" placeholder="user" id="user">
 										</div>
+									</div>
+									<div class="fields">
 										<div class="field half">
-                      <label for="password">password</label>
-                      <input type='text' name='password' placeholder='password' id="password">
+											<label for="password">password</label>
+											<input type='text' name='password' placeholder='password' id="password">
+										</div>
+									</div>
+									<div class="fields">
+										<div class="field half">
+											<label for="gender">gender</label>
+											<input type="radio" id="gender_m" name="gender" value="Male" checked>
+											<label for="gender_m">Male</label>
+										</div>
+									</div>
+									<div class="fields">
+										<div class="field half">
+											<input type="radio" id="gender_f" name="gender" value="Female">
+											<label for="gender_f">Female</label>
+										</div>
+									</div>
+									<div class="fields">
+										<div class="field half">
+											<label for="birth_date"></label>
+											<input type='date' name='birth_date' id="birth_date" style="color:black;">
 										</div>
 									</div>
 									<ul class="actions">

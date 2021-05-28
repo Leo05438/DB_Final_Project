@@ -1,5 +1,3 @@
-# Database name = finalProject
-
 CREATE TABLE anime_cleaned(
 	anime_id INT,
 	title varchar(1000),
@@ -17,7 +15,7 @@ CREATE TABLE anime_cleaned(
 	duration varchar(30),
 	rating varchar(50),
 	score float,
-	score_by int, 
+	score_by int,
 	`rank` int,
 	popularity int,
 	members int,
@@ -50,9 +48,6 @@ CREATE TABLE animelist_cleaned(
 	my_last_updated datetime,
 	my_tags varchar(1000)
 );
-
-id BIGINT AUTO_INCREMENT,
-primary key(id)
 
 CREATE TABLE users_cleaned(
 	username varchar(100),

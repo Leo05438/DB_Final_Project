@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
 
 router.get('/', function(req, res, next) {
   if(!req.session.signIned){
@@ -8,9 +9,16 @@ router.get('/', function(req, res, next) {
     res.render('index_unSignIn',{errorType:errorType});
     return;
   }
-  req.con.query('SELECT * FROM userPassword WHERE user=?',req.session.user,function(err,rows){
-    //user not exist
-    res.render('index',{data:rows});
+  req.con.query('SELECT * FROM userPassword WHERE user=?',req.session.user,function(err,password){
+    req.con.query('SELECT * FROM users_cleaned WHERE username=?',req.session.user,function(err,user){
+      req.con.query('SELECT Japanese_name name,MAL_ID id FROM anime',function(err,anime){
+        req.con.query('SELECT * FROM comment WHERE username=?',req.session.user,function(err,comment){
+          var errorType=req.session.errorType;
+          req.session.errorType=-1;
+          res.render('index',{password:password,user:user,anime:anime,anime_id:req.query.anime_id,anime_name:req.query.anime_name,errorType:errorType,comment:comment});
+        });
+      });
+    });
   });
 });
 

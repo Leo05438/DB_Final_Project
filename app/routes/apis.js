@@ -115,7 +115,7 @@ router.post('/add_comment',function(req,res,next){
   if((!req.body.anime_id)||(!req.body.episodes)||(!req.body.status)||(!req.body.score)){
     console.log('illegal data');
     req.session.errorType=0;
-    res.redirect("/?anime_id="+req.query.anime_id+"#add_comment_2");
+    res.redirect("#add_comment_2"+req.body.anime_id);
     return;
   }
   req.con.query('SELECT COUNT(*) AS n FROM comment WHERE username=? AND anime_id=?',[req.session.user,req.body.anime_id],function(err,rows){

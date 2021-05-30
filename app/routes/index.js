@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
         req.con.query('SELECT * FROM comment WHERE username=?',req.session.user,function(err,comment){
           var errorType=req.session.errorType;
           req.session.errorType=-1;
-          res.render('index',{password:password,user:user,anime:anime,anime_id:req.query.anime_id,anime_name:req.query.anime_name,errorType:errorType,comment:comment});
+          res.render('index',{password:password,user:user,anime:anime,errorType:errorType,comment:comment});
         });
       });
     });

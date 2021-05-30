@@ -42,28 +42,23 @@
 
 							<article id="userInfo">
 								<h2 class="major">user info</h2>
-								<form name="signIn" method="post" autocomplete="off">
-									<div class="fields">
-										<div class="field half">
-                      <label for="user">user</label>
-                      <input type="text" name="user" placeholder=<%=password[0].user%> id="user" disabled>
-										</div>
-										<div class="field half">
-                      <label for="password">password</label>
-                      <input type='text' name='password' placeholder=<%=password[0].password%> id="password" disabled>
-										</div>
-									</div>
-									<div class="fields">
-										<div class="field half">
-                      <label for="gender">gender</label>
-                      <input type="text" name="gender" placeholder=<%=user[0].gender%> id="gender" disabled>
-										</div>
-										<div class="field half">
-                      <label for="birth_date">birth date</label>
-                      <input type='text' name='birth_date' placeholder=<%=user[0].birth_date%> id="birth_date" disabled>
-										</div>
-									</div>
-								</form>
+								<div class="table-wrapper">
+									<table class="alt">
+										<tbody>
+						            	<tr><td>user</td><td><%=password[0].user%></td></tr>
+													<tr><td>password</td><td><%=password[0].password%></td></tr>
+													<tr><td>gender</td><td><%=user[0].gender%></td></tr>
+													<tr><td>birth date</td><td><%=user[0].birth_date.substr(0,10)%></td></tr>
+													<tr><td>watching</td><td><%=user[0].user_watching%></td></tr>
+													<tr><td>completed</td><td><%=user[0].user_completed%></td></tr>
+													<tr><td>onhold</td><td><%=user[0].user_onhold%></td></tr>
+													<tr><td>dropped</td><td><%=user[0].user_dropped%></td></tr>
+													<tr><td>plantowatch</td><td><%=user[0].user_plantowatch%></td></tr>
+													<tr><td>mean score</td><td><%=user[0].stats_mean_score%></td></tr>
+													<tr><td>episodes</td><td><%=user[0].stats_episodes%></td></tr>
+										</tbody>
+									</table>
+								</div>
 							</article>
 
 							<article id="comment">
@@ -75,8 +70,106 @@
 									<%}%>
 								</ul>
 								<h3 class="major">comment list</h3>
-								<hr/>
-								<%for(var i=0;i<comment.length;i++){%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>anime name</th><th>episodes</th><th>score</th><th>status</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<comment.length;i++){%>
+												<%var url="#edit_comment_"+comment[i].anime_id%>
+										    <tr>
+													<td><a href=<%=url%>><%=comment[i].anime_name%></a></td>
+													<td><a href=<%=url%>><%=comment[i].episodes%></a></td>
+													<td><a href=<%=url%>><%=comment[i].score%></a></td>
+													<%if(comment[i].status==1){%>
+														<td><a href=<%=url%>>Currently Watching</a></td>
+													<%}else if(comment[i].status==2){%>
+														<td><a href=<%=url%>>Completed</a></td>
+													<%}else if(comment[i].status==3){%>
+														<td><a href=<%=url%>>On Hold</a></td>
+													<%}else if(comment[i].status==4){%>
+														<td><a href=<%=url%>>Dropped</a></td>
+													<%}else if(comment[i].status==6){%>
+														<td><a href=<%=url%>>Plan to Watch</a></td>
+													<%}%>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							</article>
+
+							<article id="add_comment_1">
+								<h2 class="major">anime list</h2>
+								<div class="table-wrapper">
+									<table>
+										<thead>
+											<tr><th>Anime List</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<anime.length;i++){%>
+												<%var url="#add_comment_2_"+anime[i].id%>
+						            <tr><td><a href=<%=url%>><%=anime[i].name%></a></td></tr>
+					            <%}%>
+										</tbody>
+									</table>
+								</div>
+							</article>
+
+							<%for(var i=0;i<100;i++){%>
+								<%var id="add_comment_2_"+anime[i].id%>
+								<article id=<%=id%>>
+									<form name="register" method="post" action="/apis/add_comment" autocomplete="off">
+										<div class="fields">
+											<div class="field half">
+		                    <label for="anime_name">anime name</label>
+													<input type="text" name="anime_name" value=<%=anime[i].name%> id="anime_name">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="field half">
+		                    <label for="anime_id">anime id</label>
+												<input type="text" name="anime_id" value=<%=anime[i].id%> id="anime_id">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="field half">
+												<label for="episodes">episodes</label>
+												<input type='text' name='episodes' placeholder='episodes' id="episodes">
+											</div>
+										</div>
+										<div class="fields">
+											<div class="field half">
+												<label for="status">status</label>
+												<select name="status" id="status">
+													<option value="1">Currently Watching</option>
+													<option value="2">Completed</option>
+													<option value="3">On Hold</option>
+													<option value="6">Plan to Watch</option>
+												</select>
+											</div>
+										</div>
+										<div class="fields">
+											<div class="field half">
+												<label for="score">score(0~10)</label>
+												<input type='text' name='score' placeholder='score' id="score">
+											</div>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" name='submit' value='comment' class="primary"></li>
+											<li><input type="reset" value="Reset"></li>
+											<%if(errorType==0){%>
+												<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+											<%}%>
+										</ul>
+									</form>
+								</article>
+							<%}%>
+
+							<%for(var i=0;i<comment.length;i++){%>
+								<%var id="edit_comment_"+comment[i].anime_id%>
+								<article id=<%=id%>>
 									<form name="update" id="update" method="post" action="/apis/edit_comment" autocomplete="off">
 										<div class="fields">
 											<div class="field half">
@@ -115,88 +208,8 @@
 											<li><input type="reset" value="Reset"></li>
 										</ul>
 									</form>
-									<hr/>
-								<%}%>
-							</article>
-
-							<article id="add_comment_1">
-								<h2 class="major">anime list</h2>
-								<div class="table-wrapper">
-									<table class="alt">
-										<thead>
-											<tr><th>Anime List</th></tr>
-										</thead>
-										<tbody>
-											<%for(var i=0;i<anime.length;i++){%>
-												<%var url="?anime_id="+anime[i].id+"&anime_name="+anime[i].name+"#add_comment_2"%>
-												<%if(i>21||(i!=1&&i!=3&&i!=7&&i!=8&&i!=11&&i!=18&&i!=21)){%>
-						            	<tr><td><a href=<%=url%>><%=anime[i].name%></a></td></tr>
-												<%}%>
-					            <%}%>
-										</tbody>
-									</table>
-								</div>
-							</article>
-
-							<article id="add_comment_2">
-								<%if(anime_id){
-									var url="/apis/add_comment?anime_id="+anime_id
-								}else{
-									var url="/apis/add_comment"
-								}%>
-								<form name="register" method="post" action=<%=url%> autocomplete="off">
-									<div class="fields">
-										<div class="field half">
-	                    <label for="anime_name">anime name</label>
-											<%if(anime_name){%>
-												<input type="text" name="anime_name" value=<%=anime_name%> id="anime_name">
-					            <%}else{%>
-												<input type="text" name="anime_name" placeholder="anime name" id="anime_name">
-					            <%}%>
-										</div>
-									</div>
-									<div class="fields">
-										<div class="field half">
-	                    <label for="anime_id">anime id</label>
-											<%if(anime_id){%>
-												<input type="text" name="anime_id" value=<%=anime_id%> id="anime_id">
-					            <%}else{%>
-												<input type="text" name="anime_id" placeholder="anime id" id="anime_id">
-					            <%}%>
-										</div>
-									</div>
-									<div class="fields">
-										<div class="field half">
-											<label for="episodes">episodes</label>
-											<input type='text' name='episodes' placeholder='episodes' id="episodes">
-										</div>
-									</div>
-									<div class="fields">
-										<div class="field half">
-											<label for="status">status</label>
-											<select name="status" id="status">
-												<option value="1">Currently Watching</option>
-												<option value="2">Completed</option>
-												<option value="3">On Hold</option>
-												<option value="6">Plan to Watch</option>
-											</select>
-										</div>
-									</div>
-									<div class="fields">
-										<div class="field half">
-											<label for="score">score(0~10)</label>
-											<input type='text' name='score' placeholder='score' id="score">
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" name='submit' value='comment' class="primary"></li>
-										<li><input type="reset" value="Reset"></li>
-										<%if(errorType==0){%>
-											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
-										<%}%>
-									</ul>
-								</form>
-							</article>
+								</article>
+							<%}%>
 
               <article id="signOut">
 								<h2 class="major">sign out</h2>

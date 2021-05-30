@@ -70,34 +70,38 @@
 									<%}%>
 								</ul>
 								<h3 class="major">comment list</h3>
-								<div class="table-wrapper">
-									<table class="alt">
-										<thead>
-											<tr><th>anime name</th><th>episodes</th><th>score</th><th>status</th></tr>
-										</thead>
-										<tbody>
-											<%for(var i=0;i<comment.length;i++){%>
-												<%var url="#edit_comment_"+comment[i].anime_id%>
-										    <tr>
-													<td><a href=<%=url%>><%=comment[i].anime_name%></a></td>
-													<td><a href=<%=url%>><%=comment[i].episodes%></a></td>
-													<td><a href=<%=url%>><%=comment[i].score%></a></td>
-													<%if(comment[i].status==1){%>
-														<td><a href=<%=url%>>Currently Watching</a></td>
-													<%}else if(comment[i].status==2){%>
-														<td><a href=<%=url%>>Completed</a></td>
-													<%}else if(comment[i].status==3){%>
-														<td><a href=<%=url%>>On Hold</a></td>
-													<%}else if(comment[i].status==4){%>
-														<td><a href=<%=url%>>Dropped</a></td>
-													<%}else if(comment[i].status==6){%>
-														<td><a href=<%=url%>>Plan to Watch</a></td>
-													<%}%>
-												</tr>
-											<%}%>
-										</tbody>
-									</table>
-								</div>
+								<%if(comment.length==0){%>
+									<p>no comment</p>
+								<%}else{%>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr><th>anime name</th><th>episodes</th><th>score</th><th>status</th></tr>
+											</thead>
+											<tbody>
+												<%for(var i=0;i<comment.length;i++){%>
+													<%var url="#edit_comment_"+comment[i].anime_id%>
+											    <tr>
+														<td><a href=<%=url%>><%=comment[i].anime_name%></a></td>
+														<td><a href=<%=url%>><%=comment[i].episodes%></a></td>
+														<td><a href=<%=url%>><%=comment[i].score%></a></td>
+														<%if(comment[i].status==1){%>
+															<td><a href=<%=url%>>Currently Watching</a></td>
+														<%}else if(comment[i].status==2){%>
+															<td><a href=<%=url%>>Completed</a></td>
+														<%}else if(comment[i].status==3){%>
+															<td><a href=<%=url%>>On Hold</a></td>
+														<%}else if(comment[i].status==4){%>
+															<td><a href=<%=url%>>Dropped</a></td>
+														<%}else if(comment[i].status==6){%>
+															<td><a href=<%=url%>>Plan to Watch</a></td>
+														<%}%>
+													</tr>
+												<%}%>
+											</tbody>
+										</table>
+									</div>
+								<%}%>
 							</article>
 
 							<article id="add_comment_1">
@@ -211,6 +215,11 @@
 								</article>
 							<%}%>
 
+							<article id="search">
+								<h2 class="major">search</h2>
+								<a href="/test#test">test</a>
+							</article>
+
               <article id="signOut">
 								<h2 class="major">sign out</h2>
                 <p>Are you sure?</p>
@@ -224,8 +233,8 @@
 
 					</div>
           <footer id="footer">
-            <article id="search" style="margin-top: 35rem;">
-							<h2 class="major">search</h2>
+            <article id="recommendation" style="margin-top: 35rem;">
+							<h2 class="major">recommendation</h2>
               <ul class="actions">
                 <li><a href="#" class="button">main page</a></li>
               </ul>

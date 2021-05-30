@@ -1,4 +1,4 @@
-CREATE TABLE anime_cleaned(
+CREATE TABLE anime_cleaned(/**/
 	anime_id INT,
 	title varchar(1000),
 	title_english varchar(1000),

@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
 
 router.get('/', function(req, res, next) {
   if(!req.session.signIned){
@@ -20,6 +19,17 @@ router.get('/', function(req, res, next) {
       });
     });
   });
+});
+
+router.get('/test', function(req, res, next) {
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  res.render('test');
+  return;
 });
 
 module.exports = router;

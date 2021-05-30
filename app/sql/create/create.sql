@@ -37,7 +37,7 @@ CREATE TABLE anime(
 	PRIMARY KEY(MAL_ID)
 );
 
-CREATE TABLE animelist(
+CREATE TABLE animelist(/**/
 	user_id INT,
 	anime_id INT,
 	score FLOAT,

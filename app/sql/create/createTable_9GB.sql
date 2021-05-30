@@ -33,7 +33,7 @@ CREATE TABLE AnimeList9(
 	primary key(anime_id)
 );
 
-CREATE TABLE UserAnimeList9(
+CREATE TABLE UserAnimeList9(/**/
 	username varchar(100),
 	anime_id INT,
 	my_watch_episodes int,

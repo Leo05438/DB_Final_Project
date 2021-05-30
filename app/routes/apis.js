@@ -175,29 +175,78 @@ router.post('/add_comment',function(req,res,next){
           console.log(rows[0].stats_episodes);
           console.log(req.body.episodes);
           var data={
-            username:rows[0].username,
-            user_id:0,
             user_watching:rows[0].user_watching+w,
             user_completed:rows[0].user_completed+c,
             user_onhold:rows[0].user_onhold+o,
-            user_dropped:rows[0].user_dropped,
             user_plantowatch:rows[0].user_plantowatch+p,
-            user_days_spent_watching:0,
-            gender:rows[0].gender,
-            location:0,
-            birth_date:rows[0].birth_date,
-            access_rank:0,
-            join_date:"2000-12-13",
-            last_online:"2000-12-13",
             stats_mean_score:rows[0].stats_mean_score*n/(n+1)+req.body.score/(n+1),
-            stats_rewatched:0,
             stats_episodes:parseInt(rows[0].stats_episodes,10)+parseInt(req.body.episodes,10)
           };
           req.con.query('UPDATE users_cleaned SET ? WHERE username=?',[data,req.session.user],function(err,rows){
             req.con.query('UPDATE UserList9 SET ? WHERE username=?',[data,req.session.user],function(err,rows){
-              console.log('insert');
-              res.redirect('/#comment');
-              return;
+              req.con.query('SELECT * FROM AnimeList9 WHERE anime_id=?',req.body.anime_id,function(err,rows){
+                var data={
+                	score:req.body.score/(rows[0].members+1)+rows[0].score,
+                	members:rows[0].members+1
+                };
+                req.con.query('UPDATE AnimeList9 SET ? WHERE anime_id=?',[data,req.body.anime_id],function(err,rows){
+                  req.con.query('SELECT * FROM anime WHERE MAL_ID=?',req.body.anime_id,function(err,rows){
+                    var data={
+                    	Score:req.body.score/(rows[0].Members+1)+rows[0].Score,
+                    	Members:rows[0].Members+1,
+                    	Watching:rows[0].Watching+w,
+                    	Completed:rows[0].Completed+c,
+                    	On_Hold:rows[0].On_Hold+o,
+                    	Plan_to_Watch:rows[0].Plan_to_Watch+p,
+                    	Score_10:rows[0].Score_10,
+                    	Score_9:rows[0].Score_9,
+                    	Score_8:rows[0].Score_8,
+                    	Score_7:rows[0].Score_7,
+                    	Score_6:rows[0].Score_6,
+                    	Score_5:rows[0].Score_5,
+                    	Score_4:rows[0].Score_4,
+                    	Score_3:rows[0].Score_3,
+                    	Score_2:rows[0].Score_2,
+                    	Score_1:rows[0].Score_1
+                    };
+                    if(req.body.score==1){
+                      data.Score_1+=1;
+                    }
+                    else if(req.body.score==2){
+                      data.Score_2+=1;
+                    }
+                    else if(req.body.score==3){
+                      data.Score_3+=1;
+                    }
+                    else if(req.body.score==4){
+                      data.Score_4+=1;
+                    }
+                    else if(req.body.score==5){
+                      data.Score_5+=1;
+                    }
+                    else if(req.body.score==6){
+                      data.Score_6+=1;
+                    }
+                    else if(req.body.score==7){
+                      data.Score_7+=1;
+                    }
+                    else if(req.body.score==8){
+                      data.Score_8+=1;
+                    }
+                    else if(req.body.score==9){
+                      data.Score_9+=1;
+                    }
+                    else if(req.body.score==10){
+                      data.Score_10+=1;
+                    }
+                    req.con.query('UPDATE anime SET ? WHERE MAL_ID=?',[data,req.body.anime_id],function(err,rows){
+                      console.log('insert');
+                      res.redirect('/#comment');
+                      return;
+                    });
+                  });
+                });
+              });
             });
           });
         });
@@ -230,29 +279,86 @@ router.post('/edit_comment',function(req,res,next){
             p=-1;
           }
           var data={
-            username:rows[0].username,
-            user_id:0,
             user_watching:rows[0].user_watching+w,
             user_completed:rows[0].user_completed+c,
             user_onhold:rows[0].user_onhold+o,
             user_dropped:rows[0].user_dropped+d,
             user_plantowatch:rows[0].user_plantowatch+p,
-            user_days_spent_watching:0,
-            gender:rows[0].gender,
-            location:0,
-            birth_date:rows[0].birth_date,
-            access_rank:0,
-            join_date:"2000-12-13",
-            last_online:"2000-12-13",
             stats_mean_score:rows[0].stats_mean_score*n/(n-1)-req.body.score_o/(n-1),
-            stats_rewatched:0,
-            stats_episodes:rows[0].stats_episodes-req.body.episodes_o
+            stats_episodes:parseInt(rows[0].stats_episodes,10)-parseInt(req.body.episodes_o,10)
           };
+          if(n-1==0){
+            data.stats_mean_score=0;
+          }
           req.con.query('UPDATE users_cleaned SET ? WHERE username=?',[data,req.session.user],function(err,rows){
             req.con.query('UPDATE UserList9 SET ? WHERE username=?',[data,req.session.user],function(err,rows){
-              console.log('DELETE');
-              res.redirect('/#comment');
-              return;
+              req.con.query('SELECT * FROM AnimeList9 WHERE anime_id=?',req.body.anime_id,function(err,rows){
+                var data={
+                	score:req.body.score/(rows[0].members+1)+rows[0].score,
+                	members:rows[0].members+1
+                };
+                req.con.query('UPDATE AnimeList9 SET ? WHERE anime_id=?',[data,req.body.anime_id],function(err,rows){
+                  req.con.query('SELECT * FROM anime WHERE MAL_ID=?',req.body.anime_id,function(err,rows){
+                    var data={
+                    	Score:rows[0].Score*rows[0].Members/(rows[0].Members-1)-req.body.score/(rows[0].Members-1),
+                    	Members:rows[0].Members-1,
+                    	Watching:rows[0].Watching+w,
+                    	Completed:rows[0].Completed+c,
+                    	On_Hold:rows[0].On_Hold+o,
+                    	Dropped:rows[0].Dropped+d,
+                    	Plan_to_Watch:rows[0].Plan_to_Watch+p,
+                    	Score_10:rows[0].Score_10,
+                    	Score_9:rows[0].Score_9,
+                    	Score_8:rows[0].Score_8,
+                    	Score_7:rows[0].Score_7,
+                    	Score_6:rows[0].Score_6,
+                    	Score_5:rows[0].Score_5,
+                    	Score_4:rows[0].Score_4,
+                    	Score_3:rows[0].Score_3,
+                    	Score_2:rows[0].Score_2,
+                    	Score_1:rows[0].Score_1
+                    };
+                    if(rows[0].Members-1==0){
+                      data.Score=0;
+                    }
+                    if(req.body.score==1){
+                      data.Score_1-=1;
+                    }
+                    else if(req.body.score==2){
+                      data.Score_2-=1;
+                    }
+                    else if(req.body.score==3){
+                      data.Score_3-=1;
+                    }
+                    else if(req.body.score==4){
+                      data.Score_4-=1;
+                    }
+                    else if(req.body.score==5){
+                      data.Score_5-=1;
+                    }
+                    else if(req.body.score==6){
+                      data.Score_6-=1;
+                    }
+                    else if(req.body.score==7){
+                      data.Score_7-=1;
+                    }
+                    else if(req.body.score==8){
+                      data.Score_8-=1;
+                    }
+                    else if(req.body.score==9){
+                      data.Score_9-=1;
+                    }
+                    else if(req.body.score==10){
+                      data.Score_10-=1;
+                    }
+                    req.con.query('UPDATE anime SET ? WHERE MAL_ID=?',[data,req.body.anime_id],function(err,rows){
+                      console.log('DELETE');
+                      res.redirect('/#comment');
+                      return;
+                    });
+                  });
+                });
+              });
             });
           });
         });
@@ -265,29 +371,16 @@ router.post('/edit_comment',function(req,res,next){
       anime_id:req.body.anime_id,
       anime_name:req.body.anime_name,
       episodes:req.body.episodes,
-      start_date:"2000-12-13",
-      finish_date:"2000-12-13",
       score:req.body.score,
-      status:req.body.status,
-      rewatching:0,
-      rewatching_ep:0,
-      last_updated_9:0,
-      last_updated_c:"2000-12-13 00:00:00",
-      tags:0
+      status:req.body.status
     };
     req.con.query('UPDATE comment SET ? WHERE username=? AND anime_id=?',[data,req.session.user,req.body.anime_id],function(err,rows){
       var data={
         username:req.session.user,
         anime_id:req.body.anime_id,
         my_watch_episodes:req.body.episodes,
-        my_start_date:"2000-12-13",
-        my_finish_date:"2000-12-13",
         my_score:req.body.score,
-        my_status:req.body.status,
-        my_rewatching:0,
-        my_rewatching_ep:0,
-        my_last_updated:"2000-12-13 00:00:00",
-        my_tags:0
+        my_status:req.body.status
       };
       req.con.query('UPDATE animelist_cleaned SET ? WHERE username=? AND anime_id=?',[data,req.session.user,req.body.anime_id],function(err,rows){
         req.con.query('SELECT * FROM users_cleaned WHERE username=?',req.session.user,function(err,rows){
@@ -325,29 +418,110 @@ router.post('/edit_comment',function(req,res,next){
             p_o=-1;
           }
           var data={
-            username:rows[0].username,
-            user_id:0,
             user_watching:rows[0].user_watching+w+w_o,
             user_completed:rows[0].user_completed+c+c_o,
             user_onhold:rows[0].user_onhold+o+o_o,
             user_dropped:rows[0].user_dropped+d+d_o,
             user_plantowatch:rows[0].user_plantowatch+p+p_o,
-            user_days_spent_watching:0,
-            gender:rows[0].gender,
-            location:0,
-            birth_date:rows[0].birth_date,
-            access_rank:0,
-            join_date:"2000-12-13",
-            last_online:"2000-12-13",
             stats_mean_score:rows[0].stats_mean_score-req.body.score_o/n+req.body.score/n,
-            stats_rewatched:0,
             stats_episodes:parseInt(rows[0].stats_episodes,10)-parseInt(req.body.episodes_o,10)+parseInt(req.body.episodes,10)
           };
           req.con.query('UPDATE users_cleaned SET ? WHERE username=?',[data,req.session.user],function(err,rows){
             req.con.query('UPDATE UserList9 SET ? WHERE username=?',[data,req.session.user],function(err,rows){
-              console.log('EDIT');
-              res.redirect('/#comment');
-              return;
+              req.con.query('SELECT * FROM AnimeList9 WHERE anime_id=?',req.body.anime_id,function(err,rows){
+                var data={
+                	score:req.body.score/(rows[0].members+1)+rows[0].score,
+                	members:rows[0].members+1
+                };
+                req.con.query('UPDATE AnimeList9 SET ? WHERE anime_id=?',[data,req.body.anime_id],function(err,rows){
+                  req.con.query('SELECT * FROM anime WHERE MAL_ID=?',req.body.anime_id,function(err,rows){
+                    var data={
+                    	Score:rows[0].Score*rows[0].Members/(rows[0].Members+1)-req.body.score_o/(rows[0].Members+1)+req.body.score/(rows[0].Members+1),
+                    	Members:rows[0].Members-1,
+                    	Watching:rows[0].Watching+w+w_o,
+                    	Completed:rows[0].Completed+c+c_o,
+                    	On_Hold:rows[0].On_Hold+o+o_o,
+                    	Dropped:rows[0].Dropped+d+d_o,
+                    	Plan_to_Watch:rows[0].Plan_to_Watch+p+p_o,
+                    	Score_10:rows[0].Score_10,
+                    	Score_9:rows[0].Score_9,
+                    	Score_8:rows[0].Score_8,
+                    	Score_7:rows[0].Score_7,
+                    	Score_6:rows[0].Score_6,
+                    	Score_5:rows[0].Score_5,
+                    	Score_4:rows[0].Score_4,
+                    	Score_3:rows[0].Score_3,
+                    	Score_2:rows[0].Score_2,
+                    	Score_1:rows[0].Score_1
+                    };
+                    if(req.body.score_o==1){
+                      data.Score_1-=1;
+                    }
+                    else if(req.body.score_o==2){
+                      data.Score_2-=1;
+                    }
+                    else if(req.body.score_o==3){
+                      data.Score_3-=1;
+                    }
+                    else if(req.body.score_o==4){
+                      data.Score_4-=1;
+                    }
+                    else if(req.body.score_o==5){
+                      data.Score_5-=1;
+                    }
+                    else if(req.body.score_o==6){
+                      data.Score_6-=1;
+                    }
+                    else if(req.body.score_o==7){
+                      data.Score_7-=1;
+                    }
+                    else if(req.body.score_o==8){
+                      data.Score_8-=1;
+                    }
+                    else if(req.body.score_o==9){
+                      data.Score_9-=1;
+                    }
+                    else if(req.body.score_o==10){
+                      data.Score_10-=1;
+                    }
+                    if(req.body.score==1){
+                      data.Score_1+=1;
+                    }
+                    else if(req.body.score==2){
+                      data.Score_2+=1;
+                    }
+                    else if(req.body.score==3){
+                      data.Score_3+=1;
+                    }
+                    else if(req.body.score==4){
+                      data.Score_4+=1;
+                    }
+                    else if(req.body.score==5){
+                      data.Score_5+=1;
+                    }
+                    else if(req.body.score==6){
+                      data.Score_6+=1;
+                    }
+                    else if(req.body.score==7){
+                      data.Score_7+=1;
+                    }
+                    else if(req.body.score==8){
+                      data.Score_8+=1;
+                    }
+                    else if(req.body.score==9){
+                      data.Score_9+=1;
+                    }
+                    else if(req.body.score==10){
+                      data.Score_10+=1;
+                    }
+                    req.con.query('UPDATE anime SET ? WHERE MAL_ID=?',[data,req.body.anime_id],function(err,rows){
+                      console.log('EDIT');
+                      res.redirect('/#comment');
+                      return;
+                    });
+                  });
+                });
+              });
             });
           });
         });

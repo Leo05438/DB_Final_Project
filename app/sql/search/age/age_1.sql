@@ -6,7 +6,7 @@ FROM users_cleaned
 )
 SELECT now() AS today, username, birth_date, year( from_days( datediff( now(), birth_date ))) AS age
 FROM tmp
-WHERE age = 18
+WHERE age >= 18 AND age <= 28
 )
 SELECT anime.Name, ROUND(AVG(score), 3) AS avg_score
 FROM (animelist_cleaned

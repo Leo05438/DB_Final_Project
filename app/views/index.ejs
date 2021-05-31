@@ -13,7 +13,7 @@
 
 					<header id="header">
 						<div class="logo">
-							<i class="fa fa-book-open fa-2x" style="line-height: inherit"></i>
+							<i class="fa fa-photo-video fa-2x" style="line-height: inherit"></i>
 						</div>
 						<div class="content">
 							<div class="inner">
@@ -36,8 +36,11 @@
 
 							<article id="about">
 								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<p>好油喔</p>
+								<span class="image main"><img src="images/duck1.gif" alt="" /></span>
+								<ul class="icons">
+									<li><p>呱呱呱</p></li>
+									<li><a href="https://github.com/Leo05438/DB_Final_Project" target="_blank" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
 							</article>
 
 							<article id="userInfo">
@@ -45,17 +48,17 @@
 								<div class="table-wrapper">
 									<table class="alt">
 										<tbody>
-						            	<tr><td>user</td><td><%=password[0].user%></td></tr>
-													<tr><td>password</td><td><%=password[0].password%></td></tr>
-													<tr><td>gender</td><td><%=user[0].gender%></td></tr>
-													<tr><td>birth date</td><td><%=user[0].birth_date.substr(0,10)%></td></tr>
-													<tr><td>watching</td><td><%=user[0].user_watching%></td></tr>
-													<tr><td>completed</td><td><%=user[0].user_completed%></td></tr>
-													<tr><td>onhold</td><td><%=user[0].user_onhold%></td></tr>
-													<tr><td>dropped</td><td><%=user[0].user_dropped%></td></tr>
-													<tr><td>plantowatch</td><td><%=user[0].user_plantowatch%></td></tr>
-													<tr><td>mean score</td><td><%=user[0].stats_mean_score%></td></tr>
-													<tr><td>episodes</td><td><%=user[0].stats_episodes%></td></tr>
+				            	<tr><td>user</td><td><%=password[0].user%></td></tr>
+											<tr><td>password</td><td><%=password[0].password%></td></tr>
+											<tr><td>gender</td><td><%=user[0].gender%></td></tr>
+											<tr><td>birth date</td><td><%=user[0].birth_date.substr(0,10)%></td></tr>
+											<tr><td>watching</td><td><%=user[0].user_watching%></td></tr>
+											<tr><td>completed</td><td><%=user[0].user_completed%></td></tr>
+											<tr><td>onhold</td><td><%=user[0].user_onhold%></td></tr>
+											<tr><td>dropped</td><td><%=user[0].user_dropped%></td></tr>
+											<tr><td>plantowatch</td><td><%=user[0].user_plantowatch%></td></tr>
+											<tr><td>mean score</td><td><%=user[0].stats_mean_score%></td></tr>
+											<tr><td>episodes</td><td><%=user[0].stats_episodes%></td></tr>
 										</tbody>
 									</table>
 								</div>
@@ -128,13 +131,9 @@
 										<div class="fields">
 											<div class="field half">
 		                    <label for="anime_name">anime name</label>
-													<input type="text" name="anime_name" value=<%=anime[i].name%> id="anime_name">
-											</div>
-										</div>
-										<div class="fields">
-											<div class="field half">
-		                    <label for="anime_id">anime id</label>
-												<input type="text" name="anime_id" value=<%=anime[i].id%> id="anime_id">
+													<input type="hidden" name="anime_name" value="<%=anime[i].name%>" id="anime_name">
+													<input type="hidden" name="anime_id" value=<%=anime[i].id%> id="anime_id">
+													<input type="text" name="dis" value="<%=anime[i].name%>" id="anime_name_dis" disabled>
 											</div>
 										</div>
 										<div class="fields">
@@ -178,7 +177,8 @@
 										<div class="fields">
 											<div class="field half">
 	                      <label for="anime_name">anime name</label>
-	                      <input type="text" name="anime_name" value=<%=comment[i].anime_name%> id="anime_name">
+	                      <input type="hidden" name="anime_name" value="<%=comment[i].anime_name%>" id="anime_name">
+												<input type="text" name="dis" value="<%=comment[i].anime_name%>" id="anime_name_dis" disabled>
 											</div>
 											<div class="field half">
 	                      <label for="episodes">episodes</label>
@@ -217,12 +217,51 @@
 
 							<article id="search">
 								<h2 class="major">search</h2>
-								<a href="/test#test">test</a>
+								<!--<a href="/test#test">test</a>-->
+								<h3 class="major">類別</h3>
+								<p><a href="#s1">排出不同類別的平均分數最高</a></p>
+								<p>排出綜合分數Top100哪個類別比例最高</p>
+								<hr>
+								<h3 class="major">性別</h3>
+								<p>不同性別喜歡的類別</p>
+								<p>不同性別打的平均分數</p>
+								<hr>
+								<h3 class="major">年齡</h3>
+								<p>各年齡層的類別排名</p>
+								<p>各年齡層的平均分數</p>
+								<p>列出高分群的平均年齡 &lt;K 的所有動畫</p>
+								<p>給定一部動畫，計算他在各年齡層的評分是否>A，輸出他適合哪個年齡層的觀眾</p>
+								<hr>
+								<h3 class="major">動畫集數</h3>
+								<p>依照集數多寡分類</p>
+								<p>計算季番(10<=集數<=14)與半年番與年番的平均分數</p>
+								<hr>
+								<h3 class="major">年分</h3>
+								<p>依年分排名分數高低</p>
+								<p>比較舊番與新番的平均分數</p>
+								<p>給定年分與季節，輸出所有當季動畫</p>
+								<hr>
+								<h3 class="major">工作室</h3>
+								<p>比較不同工作室的平均分數</p>
+								<hr>
+								<h3 class="major">主題曲</h3>
+								<p>給定歌手名字，搜尋有他唱的OP/ED的動畫</p>
+								<hr>
+								<h3 class="major">其他</h3>
+								<p>算出高分群(?&lt;=8)、中分群(7&gt;=B&gt;=4)、低分群人數，用高分群分數-低分群分數，絕對值&gt;X就稱其為褒貶不一</p>
+								<p>算出高分群、中分群、低分群人數，用人數計算所占比例</p>
+								<p>選出年齡>18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成，我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數(目前只選出那些人的平均)</p>
+								<p>通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均1.5分以上</p>
+								<p>用members與complete跟平均做相關係數</p>
+								<p>我們將使用者細分成三個等級，用Completed數(感覺可以多考慮dropped率)作為切分依據，屬於看的較多組的人，我們給他的評分較高的加權值，用加權值去重新計算排名(感覺排名可以再更specify一點)</p>
+								<p>推薦: 針對一個使用者，Completed數&gt;=100，我們從他看過的動畫中選出前5個他最愛的類別，給他們一個加權數(算法:該類別個數/Completed)，我們從他看過最多的那個類別挑出前100名，計算他們的加權分數後排序，即是我們推薦他的前100名</p>
+								<p>看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</p>
+								<p>Score高分但dropped rate高?</p>
 							</article>
 
               <article id="signOut">
 								<h2 class="major">sign out</h2>
-                <p>Are you sure?</p>
+                <p>Are you sure ?</p>
                 <form name="signIn" method="post" action="/apis/signOut" autocomplete="off">
 									<ul class="actions">
 										<li><input type="submit" name='yes' value='Yes' class="primary"></li>
@@ -233,10 +272,10 @@
 
 					</div>
           <footer id="footer">
-            <article id="recommendation" style="margin-top: 35rem;">
+            <article id="recommendation" style="margin-top: 10rem;">
 							<h2 class="major">recommendation</h2>
               <ul class="actions">
-                <li><a href="#" class="button">main page</a></li>
+                <li><a href="#" class="button">home page</a></li>
               </ul>
 							<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
 						</article>

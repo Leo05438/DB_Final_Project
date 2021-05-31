@@ -172,8 +172,6 @@ router.post('/add_comment',function(req,res,next){
           else if(req.body.status==6){
             p=1;
           }
-          console.log(rows[0].stats_episodes);
-          console.log(req.body.episodes);
           var data={
             user_watching:rows[0].user_watching+w,
             user_completed:rows[0].user_completed+c,

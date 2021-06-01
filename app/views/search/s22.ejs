@@ -31,20 +31,32 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出綜合分數Top100哪個類別比例最高</h2>
+							<h2 class="major">看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</h2>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr><th>genre</th></tr>
-									</thead>
-									<tbody>
-										<tr><td><%=max%></td></tr>
-									</tbody>
-								</table>
-							</div>
+							<h3>Studio:<%=studio%></h3>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
+								<p>no result</p>
+							<%}else{%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>production</th><th>average score</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<rows.length;i++){%>
+												<tr>
+													<td><%=rows[i].cnt%></td>
+													<td><%=rows[i].avg_score%></td>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							<%}%>
 						</article>
 
 					</div>

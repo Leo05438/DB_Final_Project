@@ -31,20 +31,31 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出綜合分數Top100哪個類別比例最高</h2>
+							<h2 class="major">Score高分但dropped rate高?</h2>
 							<ul class="actions">
-                <li><a href="/" class="button">home page</a></li>
-              </ul>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr><th>genre</th></tr>
-									</thead>
-									<tbody>
-										<tr><td><%=max%></td></tr>
-									</tbody>
-								</table>
-							</div>
+								<li><a href="/" class="button">home page</a></li>
+							</ul>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
+								<p>no result</p>
+							<%}else{%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>anime</th><th>score</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<rows.length;i++){%>
+												<tr>
+													<td><%=rows[i].Japanese_name%></td>
+													<td><%=rows[i].Score%></td>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							<%}%>
 						</article>
 
 					</div>

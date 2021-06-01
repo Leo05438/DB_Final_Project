@@ -31,7 +31,8 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出不同類別的平均分數最高</h2>
+							<h3 class="major">算出高分群、中分群、低分群人數</h3>
+							<h3 class="major">用高分群分數-低分群分數，絕對值&gt;X就稱其為褒貶不一</h3>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
@@ -43,15 +44,13 @@
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th>name</th><th>score</th></tr>
+											<tr><th>anime</th><th>diff</th></tr>
 										</thead>
 										<tbody>
 											<%for(var i=0;i<rows.length;i++){%>
 												<tr>
 													<td><%=rows[i].titleh%></td>
 													<td><%=rows[i].diff%></td>
-													<td><%=rows[i].avg_hscore%></td>
-													<td><%=rows[i].avg_lscore%></td>
 												</tr>
 											<%}%>
 										</tbody>

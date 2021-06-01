@@ -31,23 +31,25 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出不同類別的平均分數最高</h2>
+							<h3 class="major">通常原創的平均分數會&lt;漫改or輕改</h3>
+							<h3 class="major">列出那些原創動畫，他們的分數&gt;漫輕改平均X分以上</h3>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
-							<h3>Genre : <%=genre%></h3>
-							<%if(rows.length==0){%>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
 								<p>no result</p>
 							<%}else{%>
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th>name</th><th>score</th></tr>
+											<tr><th>anime</th><th>score</th></tr>
 										</thead>
 										<tbody>
 											<%for(var i=0;i<rows.length;i++){%>
 												<tr>
-													<td><%=rows[i].name%></td>
+													<td><%=rows[i].Japanese_name%></td>
 													<td><%=rows[i].Score%></td>
 												</tr>
 											<%}%>

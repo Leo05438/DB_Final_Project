@@ -31,23 +31,26 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出不同類別的平均分數最高</h2>
+							<h3 class="major">算出高分群、中分群、低分群人數，用人數計算所占比例</h3>
+							<h3 class="major">依照高分群人數-低分群人數的大小排序</h3>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
-							<h3>Genre : <%=genre%></h3>
-							<%if(rows.length==0){%>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
 								<p>no result</p>
 							<%}else{%>
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th>name</th><th>score</th></tr>
+											<tr><th>name</th><th>diff</th><th>score</th></tr>
 										</thead>
 										<tbody>
 											<%for(var i=0;i<rows.length;i++){%>
 												<tr>
-													<td><%=rows[i].name%></td>
+													<td><%=rows[i].Japanese_name%></td>
+													<td><%=rows[i].diff%></td>
 													<td><%=rows[i].Score%></td>
 												</tr>
 											<%}%>

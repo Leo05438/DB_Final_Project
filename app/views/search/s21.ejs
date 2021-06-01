@@ -31,20 +31,32 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出綜合分數Top100哪個類別比例最高</h2>
+							<h2 class="major">我們將使用者的極端值，用Completed數(感覺可以多考慮dropped率)作為切分依據，然後對於某一部動畫，我們將這些人的評價篩選掉，重新計算分數作為校正分數</h2>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr><th>genre</th></tr>
-									</thead>
-									<tbody>
-										<tr><td><%=max%></td></tr>
-									</tbody>
-								</table>
-							</div>
+							<h3>Anime:<%=name%></h3>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
+								<p>no result</p>
+							<%}else{%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>old score</th><th>new score</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<rows.length;i++){%>
+												<tr>
+													<td><%=rows[i].Score%></td>
+													<td><%=rows[i].backlog_score%></td>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							<%}%>
 						</article>
 
 					</div>

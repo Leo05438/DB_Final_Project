@@ -31,20 +31,31 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出綜合分數Top100哪個類別比例最高</h2>
+							<h3 class="major">A與B的相關係數</h3>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
-							<div class="table-wrapper">
-								<table class="alt">
-									<thead>
-										<tr><th>genre</th></tr>
-									</thead>
-									<tbody>
-										<tr><td><%=max%></td></tr>
-									</tbody>
-								</table>
-							</div>
+							<h3><%=first%> and <%=second%></h3>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
+								<p>no result</p>
+							<%}else{%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>r</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<rows.length;i++){%>
+												<tr>
+													<td><%=rows[i].r%></td>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							<%}%>
 						</article>
 
 					</div>

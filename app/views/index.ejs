@@ -253,11 +253,11 @@
 								<hr>
 								<h3 class="major">其他</h3>
 								<p><a href="#s16">算出高分群、中分群、低分群人數，用高分群分數-低分群分數，絕對值&gt;X就稱其為褒貶不一</a></p>
-								<p><a href="#s17">算出高分群、中分群、低分群人數，用人數計算所占比例</a></p>
+								<p><a href="#s17">算出高分群、中分群、低分群人數，用人數計算所占比例，依照高分群人數-低分群人數的大小排序</a></p>
 								<p><a href="#s18">選出年齡>18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成，我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數(目前只選出那些人的平均)</a></p>
-								<p><a href="#s19">通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均1.5分以上</a></p>
-								<p><a href="#s20">用members與complete跟平均做相關係數</a></p>
-								<p><a href="#s21">我們將使用者細分成三個等級，用Completed數(感覺可以多考慮dropped率)作為切分依據，屬於看的較多組的人，我們給他的評分較高的加權值，用加權值去重新計算排名(感覺排名可以再更specify一點)</a></p>
+								<p><a href="#s19">通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均X分以上</a></p>
+								<p><a href="#s20">A與B的相關係數</a></p>
+								<p><a href="#s21">我們將使用者的極端值，用Completed數(感覺可以多考慮dropped率)作為切分依據，然後對於某一部動畫，我們將這些人的評價篩選掉，重新計算分數作為校正分數</a></p>
 								<p><a href="#s22">看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</a></p>
 								<p><a href="#s23">Score高分但dropped rate高?</a></p>
 							</article>
@@ -743,52 +743,35 @@
 							</article>
 
 							<article id="s17">
-								<h2 class="major">算出高分群、中分群、低分群人數，用人數計算所占比例</h2>
+								<h3 class="major">算出高分群、中分群、低分群人數，用人數計算所占比例</h3>
+								<h3 class="major">依照高分群人數-低分群人數的大小排序</h3>
 								<form name="s17" method="post" action="/apis/s17" autocomplete="off">
-									<div class="fields">
-										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
-										</div>
-									</div>
 									<ul class="actions">
 										<li><input type="submit" class="primary"></li>
-										<li><input type="reset" value="Reset"></li>
 										<li><a href="#search" class="button">back</a></li>
-										<%if(errorType==19){%>
-											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
-										<%}%>
 									</ul>
 								</form>
 							</article>
 
 							<article id="s18">
-								<h2 class="major">選出年齡>18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成，我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數(目前只選出那些人的平均)</h2>
+								<h4 class="major">選出年齡&gt;18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成</h4>
+								<h4 class="major">我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數</h4>
 								<form name="s18" method="post" action="/apis/s18" autocomplete="off">
-									<div class="fields">
-										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
-										</div>
-									</div>
 									<ul class="actions">
 										<li><input type="submit" class="primary"></li>
-										<li><input type="reset" value="Reset"></li>
 										<li><a href="#search" class="button">back</a></li>
-										<%if(errorType==20){%>
-											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
-										<%}%>
 									</ul>
 								</form>
 							</article>
 
 							<article id="s19">
-								<h2 class="major">通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均1.5分以上</h2>
+								<h3 class="major">通常原創的平均分數會&lt;漫改or輕改</h3>
+								<h3 class="major">列出那些原創動畫，他們的分數&gt;漫輕改平均X分以上</h3>
 								<form name="s19" method="post" action="/apis/s19" autocomplete="off">
 									<div class="fields">
 										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
+                      <label for="x">X</label>
+                      <input type="text" name="x" placeholder="X" id="x">
 										</div>
 									</div>
 									<ul class="actions">
@@ -803,12 +786,32 @@
 							</article>
 
 							<article id="s20">
-								<h2 class="major">用members與complete跟平均做相關係數</h2>
+								<h2 class="major">A與B的相關係數</h2>
 								<form name="s20" method="post" action="/apis/s20" autocomplete="off">
 									<div class="fields">
 										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
+											<label for="first">A</label>
+											<select name="first" id="first">
+												<option value="">-</option>
+												<option value="Score">Score</option>
+												<option value="Favorites">Favorites</option>
+												<option value="Watching">Watching</option>
+												<option value="Completed">Completed</option>
+												<option value="On_Hold">On_Hold</option>
+												<option value="Dropped">Dropped</option>
+											</select>
+										</div>
+										<div class="field half">
+											<label for="second">B</label>
+											<select name="second" id="second">
+												<option value="">-</option>
+												<option value="Score">Score</option>
+												<option value="Favorites">Favorites</option>
+												<option value="Watching">Watching</option>
+												<option value="Completed">Completed</option>
+												<option value="On_Hold">On_Hold</option>
+												<option value="Dropped">Dropped</option>
+											</select>
 										</div>
 									</div>
 									<ul class="actions">
@@ -823,12 +826,17 @@
 							</article>
 
 							<article id="s21">
-								<h2 class="major">我們將使用者細分成三個等級，用Completed數(感覺可以多考慮dropped率)作為切分依據，屬於看的較多組的人，我們給他的評分較高的加權值，用加權值去重新計算排名(感覺排名可以再更specify一點)</h2>
+								<h2 class="major">我們將使用者的極端值，用Completed數(感覺可以多考慮dropped率)作為切分依據，然後對於某一部動畫，我們將這些人的評價篩選掉，重新計算分數作為校正分數</h2>
 								<form name="s21" method="post" action="/apis/s21" autocomplete="off">
 									<div class="fields">
 										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
+											<label for="name">anime</label>
+											<select name="name" id="name">
+												<option value="">-</option>
+												<%for(var i=0;i<1000;i++){%>
+													<option value="<%=anime[i].name%>"><%=anime[i].name%></option>
+						            <%}%>
+											</select>
 										</div>
 									</div>
 									<ul class="actions">
@@ -847,8 +855,8 @@
 								<form name="s22" method="post" action="/apis/s22" autocomplete="off">
 									<div class="fields">
 										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
+                      <label for="studio">studio</label>
+                      <input type="text" name="studio" placeholder="studio" id="studio">
 										</div>
 									</div>
 									<ul class="actions">
@@ -865,19 +873,9 @@
 							<article id="s23">
 								<h2 class="major">Score高分但dropped rate高?</h2>
 								<form name="s23" method="post" action="/apis/s23" autocomplete="off">
-									<div class="fields">
-										<div class="field half">
-                      <label for="number">number of animes</label>
-                      <input type="text" name="number" placeholder="number" id="number">
-										</div>
-									</div>
 									<ul class="actions">
 										<li><input type="submit" class="primary"></li>
-										<li><input type="reset" value="Reset"></li>
 										<li><a href="#search" class="button">back</a></li>
-										<%if(errorType==25){%>
-											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
-										<%}%>
 									</ul>
 								</form>
 							</article>

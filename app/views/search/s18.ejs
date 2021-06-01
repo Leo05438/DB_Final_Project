@@ -31,24 +31,25 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">排出不同類別的平均分數最高</h2>
+							<h4 class="major">選出年齡&gt;18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成</h4>
+							<h4 class="major">我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數</h4>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
               </ul>
-							<h3>Genre : <%=genre%></h3>
-							<%if(rows.length==0){%>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
 								<p>no result</p>
 							<%}else{%>
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th>name</th><th>score</th></tr>
+											<tr><th>average score</th></tr>
 										</thead>
 										<tbody>
 											<%for(var i=0;i<rows.length;i++){%>
 												<tr>
-													<td><%=rows[i].name%></td>
-													<td><%=rows[i].Score%></td>
+													<td><%=rows[i].avg%></td>
 												</tr>
 											<%}%>
 										</tbody>

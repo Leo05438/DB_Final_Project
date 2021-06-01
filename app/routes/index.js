@@ -569,9 +569,128 @@ router.get('/s16',function(req, res, next){
     res.redirect("/#s16");
     return;
   }
-  var sql="SELECT titleh, ROUND(ABS(avg_hscore - avg_lscore),4) diff,avg_hscore,avg_lscore FROM((SELECT anime_h.title titleh,anime_h.anime_id,AVG(animelist_h.my_score) avg_hscore, COUNT(*) cnth FROM ((SELECT username,stats_mean_score FROM UserList9 WHERE stats_mean_score >= 8) high_user LEFT OUTER JOIN (SELECT username,anime_id,my_score FROM animelist_cleaned WHERE my_score > 0) animelist_h ON animelist_h.username = high_user.username LEFT OUTER JOIN(SELECT MAL_ID anime_id,Japanese_name title FROM anime) anime_h ON anime_h.anime_id = animelist_h.anime_id)GROUP BY anime_h.anime_id HAVING cnth >= 1000) high LEFT OUTER JOIN(SELECT anime_l.title titlel,anime_l.anime_id,AVG(animelist_l.my_score) avg_lscore, COUNT(*) cntl FROM ((SELECT username,stats_mean_score FROM UserList9 WHERE stats_mean_score <= 3 AND stats_mean_score > 0) low_user LEFT OUTER JOIN (SELECT username,anime_id,my_score FROM animelist_cleaned WHERE my_score > 0) animelist_l ON animelist_l.username = low_user.username LEFT OUTER JOIN(SELECT MAL_ID anime_id,Japanese_name title FROM anime) anime_l ON anime_l.anime_id = animelist_l.anime_id)GROUP BY anime_l.anime_id HAVING cntl >= 1000) low ON high.anime_id = low.anime_id)WHERE ABS(avg_hscore - avg_lscore) >= ? ORDER BY diff DESC LIMIT 10";
+  var sql= "SELECT titleh, ROUND(ABS(avg_hscore - avg_lscore),4) diff,avg_hscore,avg_lscore FROM ((SELECT anime_h.title titleh,anime_h.anime_id,AVG(animelist_h.my_score) avg_hscore, COUNT(*) cnth FROM  ((SELECT username,stats_mean_score FROM UserList9 WHERE stats_mean_score >= 8) high_user LEFT OUTER JOIN (SELECT username,anime_id,my_score FROM animelist_cleaned WHERE my_score > 0) animelist_h ON animelist_h.username = high_user.username LEFT OUTER JOIN (SELECT MAL_ID anime_id,Japanese_name title FROM anime) anime_h ON anime_h.anime_id = animelist_h.anime_id) GROUP BY anime_h.anime_id) high LEFT OUTER JOIN (SELECT anime_l.title titlel,anime_l.anime_id,AVG(animelist_l.my_score) avg_lscore, COUNT(*) cntl FROM  ((SELECT username,stats_mean_score FROM UserList9 WHERE stats_mean_score <= 3 AND stats_mean_score > 0) low_user LEFT OUTER JOIN (SELECT username,anime_id,my_score FROM animelist_cleaned WHERE my_score > 0) animelist_l ON animelist_l.username = low_user.username LEFT OUTER JOIN (SELECT MAL_ID anime_id,Japanese_name title FROM anime) anime_l ON anime_l.anime_id = animelist_l.anime_id) GROUP BY anime_l.anime_id) low ON high.anime_id = low.anime_id) WHERE ABS(avg_hscore - avg_lscore) >= ? ORDER BY diff DESC LIMIT 10";
   req.con.query(sql,Number(req.query.x),function(err,rows){
     res.render('search/s16',{rows:rows});
+    return;
+  });
+});
+router.get('/s17',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  var sql="SELECT anime_name.Japanese_name,(anime_tot.high - anime_tot.low) diff,anime_name.Score FROM (SELECT MAL_ID anime_id,Japanese_name,Name,Score FROM anime) anime_name LEFT OUTER JOIN(SELECT (Score_10 + Score_9 + Score_8) high,(Score_7 + Score_6 + Score_5 + Score_4) mid,(Score_3 + Score_2 + Score_1) low,(Score_10 + Score_9 + Score_8 + Score_7 + Score_6 + Score_5 + Score_4 + Score_3 + Score_2 + Score_1) total,MAL_ID anime_id FROM anime) anime_tot ON anime_tot.anime_id = anime_name.anime_id ORDER BY diff DESC LIMIT 10";
+  req.con.query(sql,function(err,rows){
+    res.render('search/s17',{rows:rows});
+    return;
+  });
+});
+router.get('/s18',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  var sql="SELECT ROUND(AVG(old_lovers.avg_score_for_new),4) avg FROM (SELECT old_lover.username,AVG(animelist_all.my_score) avg_score_for_new FROM  ((SELECT MAL_ID anime_id,japanese_name FROM anime WHERE aired LIKE \"%2017%\" OR aired LIKE \"%2018%\" OR aired LIKE \"%2019%\" OR aired LIKE \"%202%\") new_anime LEFT OUTER JOIN (SELECT username,anime_id,my_score FROM animelist_cleaned WHERE my_score > 0) animelist_all ON new_anime.anime_id = animelist_all.anime_id LEFT OUTER JOIN (SELECT adult.username,adult.completed,COUNT(*) cnt FROM ((SELECT username,anime_id,my_score FROM animelist_cleaned WHERE my_score >= 8) animelist_4 LEFT OUTER JOIN (SELECT username,user_completed completed FROM users_cleaned WHERE TIMESTAMPDIFF(YEAR,birth_date,\"2021-05-29 21:34:00\") >= 18) adult ON adult.username = animelist_4.username LEFT OUTER JOIN (SELECT Japanese_name title,MAL_ID anime_id FROM anime WHERE aired LIKE \"%2010%\" OR aired LIKE \"%2011%\" OR aired LIKE \"%2012%\" OR aired LIKE \"200%\" OR (aired LIKE \"%19%\" AND aired NOT LIKE \"%2019%\")) old_anime ON old_anime.anime_id = animelist_4.anime_id) GROUP BY adult.username HAVING (cnt / adult.completed) >= 0.5) old_lover ON animelist_all.username = old_lover.username)GROUP BY old_lover.username) old_lovers";
+  req.con.query(sql,function(err,rows){
+    res.render('search/s18',{rows:rows});
+    return;
+  });
+});
+router.get('/s19',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  //illegal data
+  if((!req.query.x)){
+    console.log('illegal data');
+    req.session.errorType=21;
+    res.redirect("/#s19");
+    return;
+  }
+  var sql= "SELECT Japanese_name,Score FROM anime WHERE Source LIKE \"Original\" AND Score - ? > (SELECT AVG(Score) FROM anime WHERE Source LIKE \"Light novel\" OR Source LIKE \"Manga\") ORDER BY Score DESC LIMIT 20";
+  req.con.query(sql,Number(req.query.x),function(err,rows){
+    res.render('search/s19',{rows:rows});
+    return;
+  });
+});
+router.get('/s20',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  //illegal data
+  if((!req.query.first)||(!req.query.second)){
+    console.log('illegal data');
+    req.session.errorType=22;
+    res.redirect("/#s20");
+    return;
+  }
+  var sql="WITH Av AS (SELECT AVG("+req.query.first+") AS avg_1, AVG("+req.query.second+") AS avg_2, STDDEV_SAMP("+req.query.first+") * STDDEV_SAMP("+req.query.second+") AS std1, COUNT(*) AS N FROM anime)SELECT ROUND(SUM(("+req.query.first+" - avg_1)*("+req.query.second+" - avg_2)/((N - 1) * std1)), 5) AS r FROM Av, anime";
+  req.con.query(sql,function(err,rows){
+    res.render('search/s20',{rows:rows,first:req.query.first,second:req.query.second});
+    return;
+  });
+});
+router.get('/s21',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  //illegal data
+  if((!req.query.name)){
+    console.log('illegal data');
+    req.session.errorType=23;
+    res.redirect("/#s21");
+    return;
+  }
+  var sql="WITH tmp AS ( SELECT AVG(user_completed) + 1.25 * STD(user_completed) AS cp, AVG(user_dropped) + 1.25 * STD(user_dropped) AS dp, AVG(stats_mean_score) + 1.25 * STD(stats_mean_score) AS scr_c, AVG(stats_mean_score) - 1.25 * STD(stats_mean_score) AS scr_d FROM users_cleaned ), tmp_a AS ( SELECT MAL_ID, Score, Members FROM anime WHERE Japanese_name = ? ), tmp_c AS ( SELECT username FROM users_cleaned WHERE username IN ( SELECT username FROM users_cleaned, tmp WHERE user_completed > tmp.cp AND stats_mean_score > tmp.scr_c ) ), tmp_d AS ( SELECT username, user_dropped, stats_mean_score FROM users_cleaned WHERE username IN ( SELECT username FROM users_cleaned, tmp WHERE user_dropped > tmp.dp AND stats_mean_score < tmp.scr_d ) ), tmp_backlog AS ( SELECT SUM(t.cnt) AS cnt, SUM(t.tt) AS tt FROM ( SELECT COUNT(anime_id) AS cnt, SUM(my_score) AS tt FROM animelist_cleaned, tmp_a WHERE anime_id = tmp_a.MAL_ID AND my_score != 0 AND username IN ( SELECT username FROM tmp_c ) UNION ALL SELECT COUNT(anime_id) AS cnt, SUM(my_score) AS tt FROM animelist_cleaned, tmp_a WHERE anime_id = tmp_a.MAL_ID AND my_score != 0 AND username IN ( SELECT username FROM tmp_d ) ) AS t ) SELECT Score, ROUND((Score*Members - cnt*tt)/(Members-tt), 3) AS backlog_score FROM tmp_a, tmp_backlog";
+  req.con.query(sql,req.query.name,function(err,rows){
+    res.render('search/s21',{rows:rows,name:req.query.name});
+    return;
+  });
+});
+router.get('/s22',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  //illegal data
+  if((!req.query.studio)){
+    console.log('illegal data');
+    req.session.errorType=24;
+    res.redirect("/#s22");
+    return;
+  }
+  var sql="WITH tmp AS ( SELECT Studios, Premiered, COUNT(MAL_ID) AS cnt FROM anime WHERE Studios = ? AND Premiered != \"Unknown\" GROUP BY Premiered  ORDER BY Premiered, cnt DESC ), tmp1 AS ( WITH t AS ( SELECT Premiered, Score, A.Studios FROM anime A WHERE A.Studios IN ( SELECT Studios FROM tmp ) ) SELECT t.Premiered, AVG(t.Score) AS avg_scr FROM t GROUP BY t.Premiered ) SELECT cnt, AVG(avg_scr) avg_score FROM tmp, tmp1 WHERE tmp1.Premiered = tmp.Premiered GROUP BY cnt";
+  req.con.query(sql,req.query.studio,function(err,rows){
+    res.render('search/s22',{rows:rows,studio:req.query.studio});
+    return;
+  });
+});
+router.get('/s23',function(req, res, next){
+  if(!req.session.signIned){
+    var errorType=req.session.errorType;
+    req.session.errorType=-1;
+    res.render('index_unSignIn',{errorType:errorType});
+    return;
+  }
+  var sql="WITH tmp AS ( SELECT AVG(Dropped/Members) + 0.7 * STD(Dropped/Members) AS n1, AVG(Score) + 0.7 * STD(Score) AS n2 FROM anime ) SELECT Japanese_name, Dropped/Members, Score, Score * (Dropped/Members) FROM anime, tmp WHERE Dropped/Members > tmp.n1 AND Score > tmp.n2 ORDER BY Score * (Dropped/Members) DESC LIMIT 10";
+  req.con.query(sql,function(err,rows){
+    res.render('search/s23',{rows:rows});
     return;
   });
 });

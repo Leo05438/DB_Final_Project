@@ -9,13 +9,13 @@ FROM Av, anime;
 
 
 -- WITH Av AS (
--- SELECT ROUND(AVG(Score),3) AS avg_scr, ROUND(AVG(Completed/Members),3) AS avg_cpl, ROUND(AVG(Dropped/Members),3) AS avg_drp, 
+-- SELECT ROUND(AVG(Score),3) AS avg_scr, ROUND(AVG(Completed/Members),3) AS avg_cpl, ROUND(AVG(Dropped/Members),3) AS avg_drp,
 -- ROUND(STDDEV_SAMP(Score) * STDDEV_SAMP(Completed/Members),3) AS std1, ROUND(STDDEV_SAMP(Score),3) * ROUND(STDDEV_SAMP(Dropped/Members),3) AS std2, COUNT(*) AS N
 -- FROM anime
 -- )
 -- SELECT SUM((Score - avg_scr)*(Completed/Members - avg_cpl)/((N - 1) * std1)) AS r1, SUM((Score - avg_scr)*(Dropped/Members - avg_drp)/((N - 1) * std2)) AS r2
 -- FROM Av, anime
- 
+
 
 -- WITH tmp AS (
 -- SELECT @ascr := ROUND(AVG(Score),3), @acpl := ROUND(AVG(Completed/Members),3), @adrp := ROUND(AVG(Dropped),3),

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const url = require('url');
 
 router.post('/register',function(req,res,next){
   if(req.session.signIned){
@@ -254,7 +255,17 @@ router.post('/add_comment',function(req,res,next){
 });
 
 router.post('/edit_comment',function(req,res,next){
-  //console.log(req.body);
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
+  //illegal data
+  if((!req.body.anime_name)||(!req.body.episodes)||(!req.body.status)||(!req.body.score)||(!req.body.username)||(!req.body.anime_id)||(!req.body.episodes_o)||(!req.body.score_o)||(!req.body.status_o)){
+    console.log('illegal data');
+    req.session.errorType=2;
+    res.redirect("/#edit_comment_"+req.body.anime_id);
+    return;
+  }
   if(req.body.submit=="delete"){
     req.con.query('DELETE FROM comment WHERE username=? AND anime_id=?',[req.session.user,req.body.anime_id],function(err,rows){
       req.con.query('DELETE FROM animelist_cleaned WHERE username=? AND anime_id=?',[req.session.user,req.body.anime_id],function(err,rows){
@@ -526,6 +537,168 @@ router.post('/edit_comment',function(req,res,next){
       });
     });
   }
+});
+
+router.post('/s1',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s1',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s2',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s2',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s3',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s3',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s4',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s4',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s5',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s5',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s6',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s6',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s7',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s7',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s8',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s8',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s9',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s9',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s10',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s10',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s11',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s11',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s12',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s12',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s13',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s13',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s14',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s14',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s15',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s15',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s16',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s16',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s17',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s17',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s18',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s18',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s19',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s19',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s20',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s20',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s21',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s21',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s22',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s22',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s23',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s23',
+    hash:'search',
+    query:req.body
+  }));
 });
 
 module.exports = router;

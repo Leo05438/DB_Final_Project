@@ -162,6 +162,7 @@
 										<ul class="actions">
 											<li><input type="submit" name='submit' value='comment' class="primary"></li>
 											<li><input type="reset" value="Reset"></li>
+											<li><a href="#add_comment_1" class="button">back</a></li>
 											<%if(errorType==0){%>
 												<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
 											<%}%>
@@ -210,6 +211,10 @@
 											<li><input type="submit" name='submit' value='edit' class="primary"></li>
 											<li><input type="submit" name='submit' value='delete'></li>
 											<li><input type="reset" value="Reset"></li>
+											<li><a href="#comment" class="button">back</a></li>
+											<%if(errorType==2){%>
+												<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+											<%}%>
 										</ul>
 									</form>
 								</article>
@@ -217,51 +222,664 @@
 
 							<article id="search">
 								<h2 class="major">search</h2>
-								<!--<a href="/test#test">test</a>-->
 								<h3 class="major">類別</h3>
 								<p><a href="#s1">排出不同類別的平均分數最高</a></p>
-								<p>排出綜合分數Top100哪個類別比例最高</p>
+								<p><a href="#s2">選出綜合分數Top100哪個類別比例最高</a></p>
 								<hr>
 								<h3 class="major">性別</h3>
-								<p>不同性別喜歡的類別</p>
-								<p>不同性別打的平均分數</p>
+								<p><a href="#s3">不同性別喜歡不同類別的人數</a></p>
+								<p><a href="#s4">不同性別打的平均分數</a></p>
 								<hr>
 								<h3 class="major">年齡</h3>
-								<p>各年齡層的類別排名</p>
-								<p>各年齡層的平均分數</p>
-								<p>列出高分群的平均年齡 &lt;K 的所有動畫</p>
-								<p>給定一部動畫，計算他在各年齡層的評分是否>A，輸出他適合哪個年齡層的觀眾</p>
+								<p><a href="#s5">各年齡層的類別排名</a></p>
+								<p><a href="#s6">各年齡層的平均分數</a></p>
+								<p><a href="#s7">列出平均分數 &lt;= K 的動畫跟觀眾的平均年齡</a></p>
+								<p><a href="#s8">給定一部動畫，計算他在某年齡層的平均分數</a></p>
 								<hr>
 								<h3 class="major">動畫集數</h3>
-								<p>依照集數多寡分類</p>
-								<p>計算季番(10<=集數<=14)與半年番與年番的平均分數</p>
+								<p><a href="#s9">某集數分數前100名</a></p>
+								<p><a href="#s10">計算季番(10<=集數<=14)與半年番與年番的平均分數</a></p>
 								<hr>
 								<h3 class="major">年分</h3>
-								<p>依年分排名分數高低</p>
-								<p>比較舊番與新番的平均分數</p>
-								<p>給定年分與季節，輸出所有當季動畫</p>
+								<p><a href="#s11">某年代分數前10名</a></p>
+								<p><a href="#s12">比較舊番與新番的平均分數</a></p>
+								<p><a href="#s13">給定年分與季節，輸出前十名的當季動畫</a></p>
 								<hr>
 								<h3 class="major">工作室</h3>
-								<p>比較不同工作室的平均分數</p>
+								<p><a href="#s14">不同工作室的平均分數排名</a></p>
 								<hr>
 								<h3 class="major">主題曲</h3>
-								<p>給定歌手名字，搜尋有他唱的OP/ED的動畫</p>
+								<p><a href="#s15">給定歌手名字，搜尋有他唱的OP/ED的動畫</a></p>
 								<hr>
 								<h3 class="major">其他</h3>
-								<p>算出高分群(?&lt;=8)、中分群(7&gt;=B&gt;=4)、低分群人數，用高分群分數-低分群分數，絕對值&gt;X就稱其為褒貶不一</p>
-								<p>算出高分群、中分群、低分群人數，用人數計算所占比例</p>
-								<p>選出年齡>18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成，我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數(目前只選出那些人的平均)</p>
-								<p>通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均1.5分以上</p>
-								<p>用members與complete跟平均做相關係數</p>
-								<p>我們將使用者細分成三個等級，用Completed數(感覺可以多考慮dropped率)作為切分依據，屬於看的較多組的人，我們給他的評分較高的加權值，用加權值去重新計算排名(感覺排名可以再更specify一點)</p>
-								<p>推薦: 針對一個使用者，Completed數&gt;=100，我們從他看過的動畫中選出前5個他最愛的類別，給他們一個加權數(算法:該類別個數/Completed)，我們從他看過最多的那個類別挑出前100名，計算他們的加權分數後排序，即是我們推薦他的前100名</p>
-								<p>看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</p>
-								<p>Score高分但dropped rate高?</p>
+								<p><a href="#s16">算出高分群、中分群、低分群人數，用高分群分數-低分群分數，絕對值&gt;X就稱其為褒貶不一</a></p>
+								<p><a href="#s17">算出高分群、中分群、低分群人數，用人數計算所占比例</a></p>
+								<p><a href="#s18">選出年齡>18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成，我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數(目前只選出那些人的平均)</a></p>
+								<p><a href="#s19">通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均1.5分以上</a></p>
+								<p><a href="#s20">用members與complete跟平均做相關係數</a></p>
+								<p><a href="#s21">我們將使用者細分成三個等級，用Completed數(感覺可以多考慮dropped率)作為切分依據，屬於看的較多組的人，我們給他的評分較高的加權值，用加權值去重新計算排名(感覺排名可以再更specify一點)</a></p>
+								<p><a href="#s22">看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</a></p>
+								<p><a href="#s23">Score高分但dropped rate高?</a></p>
 							</article>
 
 							<article id="s1">
 								<h2 class="major">排出不同類別的平均分數最高</h2>
-								
+								<form name="s1" method="post" action="/apis/s1" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="genre">genre</label>
+											<select name="genre" id="genre">
+												<option value="">-</option>
+												<option value="Action">Action</option>
+												<option value="Adventure">Adventure</option>
+												<option value="Cars">Cars</option>
+												<option value="Comedy">Comedy</option>
+												<option value="Dementia">Dementia</option>
+												<option value="Demons">Demons</option>
+												<option value="Drama">Drama</option>
+												<option value="Ecchi">Ecchi</option>
+												<option value="Fantasy">Fantasy</option>
+												<option value="Game">Game</option>
+												<option value="Harem">Harem</option>
+												<option value="Hentai">Hentai</option>
+												<option value="Historical">Historical</option>
+												<option value="Horror">Horror</option>
+												<option value="Josei">Josei</option>
+												<option value="Kids">Kids</option>
+												<option value="Magic">Magic</option>
+												<option value="Martial Arts">Martial Arts</option>
+												<option value="Mecha">Mecha</option>
+												<option value="Military">Military</option>
+												<option value="Music">Music</option>
+												<option value="Mystery">Mystery</option>
+												<option value="Parody">Parody</option>
+												<option value="Police">Police</option>
+												<option value="Psychological">Psychological</option>
+												<option value="Romance">Romance</option>
+												<option value="Samurai">Samurai</option>
+												<option value="School">School</option>
+												<option value="Sci-Fi">Sci-Fi</option>
+												<option value="Seinen">Seinen</option>
+												<option value="Shoujo">Shoujo</option>
+												<option value="Shoujo Ai">Shoujo Ai</option>
+												<option value="Shounen">Shounen</option>
+												<option value="Shounen Ai">Shounen Ai</option>
+												<option value="Slice of Life">Slice of Life</option>
+												<option value="Space">Space</option>
+												<option value="Sports">Sports</option>
+												<option value="Super Power">Super Power</option>
+												<option value="Supernatural">Supernatural</option>
+												<option value="Thriller">Thriller</option>
+												<option value="Vampire">Vampire</option>
+												<option value="Yaoi">Yaoi</option>
+												<option value="Yuri">Yuri</option>
+											</select>
+										</div>
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==3){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s2">
+								<h2 class="major">選出綜合分數Top100哪個類別比例最高</h2>
+								<form name="s2" method="post" action="/apis/s2" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><a href="#search" class="button">back</a></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s3">
+								<h2 class="major">不同性別喜歡不同類別的人數</h2>
+								<form name="s3" method="post" action="/apis/s3" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+											<label for="gender">gender</label>
+											<select name="gender" id="gender">
+												<option value="male">male</option>
+												<option value="female">female</option>
+											</select>
+										</div>
+										<div class="field half">
+											<label for="genre">genre</label>
+											<select name="genre" id="genre">
+												<option value="">-</option>
+												<option value="Action">Action</option>
+												<option value="Adventure">Adventure</option>
+												<option value="Cars">Cars</option>
+												<option value="Comedy">Comedy</option>
+												<option value="Dementia">Dementia</option>
+												<option value="Demons">Demons</option>
+												<option value="Drama">Drama</option>
+												<option value="Ecchi">Ecchi</option>
+												<option value="Fantasy">Fantasy</option>
+												<option value="Game">Game</option>
+												<option value="Harem">Harem</option>
+												<option value="Hentai">Hentai</option>
+												<option value="Historical">Historical</option>
+												<option value="Horror">Horror</option>
+												<option value="Josei">Josei</option>
+												<option value="Kids">Kids</option>
+												<option value="Magic">Magic</option>
+												<option value="Martial Arts">Martial Arts</option>
+												<option value="Mecha">Mecha</option>
+												<option value="Military">Military</option>
+												<option value="Music">Music</option>
+												<option value="Mystery">Mystery</option>
+												<option value="Parody">Parody</option>
+												<option value="Police">Police</option>
+												<option value="Psychological">Psychological</option>
+												<option value="Romance">Romance</option>
+												<option value="Samurai">Samurai</option>
+												<option value="School">School</option>
+												<option value="Sci-Fi">Sci-Fi</option>
+												<option value="Seinen">Seinen</option>
+												<option value="Shoujo">Shoujo</option>
+												<option value="Shoujo Ai">Shoujo Ai</option>
+												<option value="Shounen">Shounen</option>
+												<option value="Shounen Ai">Shounen Ai</option>
+												<option value="Slice of Life">Slice of Life</option>
+												<option value="Space">Space</option>
+												<option value="Sports">Sports</option>
+												<option value="Super Power">Super Power</option>
+												<option value="Supernatural">Supernatural</option>
+												<option value="Thriller">Thriller</option>
+												<option value="Vampire">Vampire</option>
+												<option value="Yaoi">Yaoi</option>
+												<option value="Yuri">Yuri</option>
+											</select>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==5){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s4">
+								<h2 class="major">不同性別打的平均分數</h2>
+								<form name="s4" method="post" action="/apis/s4" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+											<label for="gender">gender</label>
+											<select name="gender" id="gender">
+												<option value="male">male</option>
+												<option value="female">female</option>
+											</select>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==6){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s5">
+								<h2 class="major">各年齡層的類別排名</h2>
+								<form name="s5" method="post" action="/apis/s5" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="first">lower bound</label>
+                      <input type="text" name="first" placeholder="lower bound" id="first">
+										</div>
+										<div class="field half">
+                      <label for="second">upper bound</label>
+                      <input type="text" name="second" placeholder="upper bound" id="second">
+										</div>
+									</div>
+									<div class="fields">
+										<div class="field half">
+											<label for="genre">genre</label>
+											<select name="genre" id="genre">
+												<option value="">-</option>
+												<option value="Action">Action</option>
+												<option value="Adventure">Adventure</option>
+												<option value="Cars">Cars</option>
+												<option value="Comedy">Comedy</option>
+												<option value="Dementia">Dementia</option>
+												<option value="Demons">Demons</option>
+												<option value="Drama">Drama</option>
+												<option value="Ecchi">Ecchi</option>
+												<option value="Fantasy">Fantasy</option>
+												<option value="Game">Game</option>
+												<option value="Harem">Harem</option>
+												<option value="Hentai">Hentai</option>
+												<option value="Historical">Historical</option>
+												<option value="Horror">Horror</option>
+												<option value="Josei">Josei</option>
+												<option value="Kids">Kids</option>
+												<option value="Magic">Magic</option>
+												<option value="Martial Arts">Martial Arts</option>
+												<option value="Mecha">Mecha</option>
+												<option value="Military">Military</option>
+												<option value="Music">Music</option>
+												<option value="Mystery">Mystery</option>
+												<option value="Parody">Parody</option>
+												<option value="Police">Police</option>
+												<option value="Psychological">Psychological</option>
+												<option value="Romance">Romance</option>
+												<option value="Samurai">Samurai</option>
+												<option value="School">School</option>
+												<option value="Sci-Fi">Sci-Fi</option>
+												<option value="Seinen">Seinen</option>
+												<option value="Shoujo">Shoujo</option>
+												<option value="Shoujo Ai">Shoujo Ai</option>
+												<option value="Shounen">Shounen</option>
+												<option value="Shounen Ai">Shounen Ai</option>
+												<option value="Slice of Life">Slice of Life</option>
+												<option value="Space">Space</option>
+												<option value="Sports">Sports</option>
+												<option value="Super Power">Super Power</option>
+												<option value="Supernatural">Supernatural</option>
+												<option value="Thriller">Thriller</option>
+												<option value="Vampire">Vampire</option>
+												<option value="Yaoi">Yaoi</option>
+												<option value="Yuri">Yuri</option>
+											</select>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==7){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s6">
+								<h2 class="major">各年齡層的平均分數</h2>
+								<form name="s6" method="post" action="/apis/s6" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="first">lower bound</label>
+                      <input type="text" name="first" placeholder="lower bound" id="first">
+										</div>
+										<div class="field half">
+                      <label for="second">upper bound</label>
+                      <input type="text" name="second" placeholder="upper bound" id="second">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==8){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s7">
+								<h3 class="major">列出平均分數 &lt;= K 的動畫跟觀眾的平均年齡</h3>
+								<form name="s7" method="post" action="/apis/s7" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="score">K</label>
+                      <input type="text" name="score" placeholder="K" id="score">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==9){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s8">
+								<h3 class="major">給定一部動畫，計算他在某年齡層的平均分數</h3>
+								<form name="s8" method="post" action="/apis/s8" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="first">lower bound</label>
+                      <input type="text" name="first" placeholder="lower bound" id="first">
+										</div>
+										<div class="field half">
+                      <label for="second">upper bound</label>
+                      <input type="text" name="second" placeholder="upper bound" id="second">
+										</div>
+									</div>
+									<div class="fields">
+										<div class="field half">
+                      <label for="name">anime</label>
+											<select name="name" id="name">
+												<option value="">-</option>
+												<%for(var i=0;i<1000;i++){%>
+													<option value="<%=anime[i].name%>"><%=anime[i].name%></option>
+						            <%}%>
+											</select>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==10){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s9">
+								<h2 class="major">某集數分數前100名</h2>
+								<form name="s9" method="post" action="/apis/s9" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="episode">number of episodes</label>
+                      <input type="text" name="episode" placeholder="episodes" id="episode">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==11){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s10">
+								<h3 class="major">計算季番(10<=集數<=14)與半年番與年番的平均分數</h3>
+								<form name="s10" method="post" action="/apis/s10" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><a href="#search" class="button">back</a></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s11">
+								<h2 class="major">某年代分數前10名</h2>
+								<form name="s11" method="post" action="/apis/s11" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="years">years</label>
+											<select name="years" id="years">
+												<option value="">-</option>
+												<option value="199">1990s</option>
+												<option value="200">2000s</option>
+												<option value="201">2010s</option>
+												<option value="202">2020s</option>
+											</select>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==13){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s12">
+								<h2 class="major">比較舊番與新番的平均分數</h2>
+								<form name="s12" method="post" action="/apis/s12" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><a href="#search" class="button">back</a></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s13">
+								<h2 class="major">給定年分與季節，輸出前十名的當季動畫</h2>
+								<form name="s13" method="post" action="/apis/s13" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="year">years</label>
+											<select name="year" id="year">
+												<option value="">-</option>
+												<%for(var i=1917;i<2022;i++){%>
+													<option value=<%=i%>><%=i%></option>
+												<%}%>
+											</select>
+										</div>
+										<div class="field half">
+                      <label for="season">season</label>
+											<select name="season" id="season">
+												<option value="">-</option>
+												<option value="0">Spring</option>
+												<option value="1">Summer</option>
+												<option value="2">Autumn</option>
+												<option value="3">Winter</option>
+											</select>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==15){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s14">
+								<h2 class="major">不同工作室的平均分數排名</h2>
+								<form name="s14" method="post" action="/apis/s14" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><a href="#search" class="button">back</a></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s15">
+								<h3 class="major">給定歌手名字，搜尋有他唱的OP/ED的動畫</h3>
+								<form name="s15" method="post" action="/apis/s15" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="name">singer</label>
+                      <input type="text" name="name" placeholder="singer name" id="name">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==17){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s16">
+								<h3 class="major">算出高分群、中分群、低分群人數</h3>
+								<h3 class="major">用高分群分數-低分群分數，絕對值&gt;X就稱其為褒貶不一</h3>
+								<form name="s16" method="post" action="/apis/s16" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="x">X</label>
+                      <input type="text" name="x" placeholder="X" id="x">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==18){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s17">
+								<h2 class="major">算出高分群、中分群、低分群人數，用人數計算所占比例</h2>
+								<form name="s17" method="post" action="/apis/s17" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==19){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s18">
+								<h2 class="major">選出年齡>18而且評高分的動畫年分&lt;=2012的比例佔其全部動畫比例的5成，我們稱這種人為舊番愛好者，檢查這些人對於年分&gt;=2017的動畫的平均分數(目前只選出那些人的平均)</h2>
+								<form name="s18" method="post" action="/apis/s18" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==20){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s19">
+								<h2 class="major">通常原創的平均分數會&lt;漫改or輕改，列出那些原創動畫，他們的分數&gt;漫輕改平均1.5分以上</h2>
+								<form name="s19" method="post" action="/apis/s19" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==21){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s20">
+								<h2 class="major">用members與complete跟平均做相關係數</h2>
+								<form name="s20" method="post" action="/apis/s20" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==22){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s21">
+								<h2 class="major">我們將使用者細分成三個等級，用Completed數(感覺可以多考慮dropped率)作為切分依據，屬於看的較多組的人，我們給他的評分較高的加權值，用加權值去重新計算排名(感覺排名可以再更specify一點)</h2>
+								<form name="s21" method="post" action="/apis/s21" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==23){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s22">
+								<h2 class="major">看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</h2>
+								<form name="s22" method="post" action="/apis/s22" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==24){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s23">
+								<h2 class="major">Score高分但dropped rate高?</h2>
+								<form name="s23" method="post" action="/apis/s23" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="number">number of animes</label>
+                      <input type="text" name="number" placeholder="number" id="number">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==25){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
 							</article>
 
               <article id="signOut">

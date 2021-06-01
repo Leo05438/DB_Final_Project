@@ -18,12 +18,11 @@
 						<div class="content">
 							<div class="inner">
 								<h1>search</h1>
-								<p>test</p>
 							</div>
 						</div>
 						<nav>
 							<ul>
-                <li><a href="#test">Test</a></li>
+                <li><a href="#search">search</a></li>
                 <li><a href="/">home page</a></li>
 							</ul>
 						</nav>
@@ -31,12 +30,35 @@
 
 					<div id="main">
 
-							<article id="test">
-								<h2 class="major">test</h2>
-                <ul class="actions">
-                  <li><a href="/" class="button">home page</a></li>
-                </ul>
-							</article>
+						<article id="search">
+							<h2 class="major">給定年分與季節，輸出前十名的當季動畫</h2>
+							<ul class="actions">
+                <li><a href="/" class="button">home page</a></li>
+              </ul>
+							<h3>Year : <%=year%></h3>
+							<h3>Season : <%=season%></h3>
+							<%if(!rows){%>
+								<p>no result</p>
+							<%}else if(rows.length==0){%>
+								<p>no result</p>
+							<%}else{%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>name</th><th>score</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<rows.length;i++){%>
+												<tr>
+													<td><%=rows[i].name%></td>
+													<td><%=rows[i].Score%></td>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							<%}%>
+						</article>
 
 					</div>
           <footer id="footer">

@@ -1,5 +1,5 @@
 -- Spring
-SELECT Japanese_name,Score
+SELECT Japanese_name name,Score
 FROM anime
 WHERE Aired LIKE "%2012%"
 AND (Aired LIKE "Jan%"

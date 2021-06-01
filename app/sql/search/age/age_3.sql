@@ -12,9 +12,8 @@ LEFT OUTER JOIN
 (SELECT username,TIMESTAMPDIFF(YEAR,birth_date,NOW()) age
 FROM users_cleaned) users
 ON users.username = animelist_clean.username
-WHERE animelist.score >= 8
+WHERE animelist.score <= 8
 GROUP BY animelist_clean.anime_id) high_score
--- WHERE high_score.user_age <= 20
 ORDER BY high_score.anime_score DESC
 LIMIT 10;
 

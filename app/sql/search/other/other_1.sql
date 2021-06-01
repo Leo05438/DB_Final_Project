@@ -14,8 +14,7 @@ FROM
 	 (SELECT MAL_ID anime_id,Japanese_name title
 	  FROM anime) anime_h
 	  ON anime_h.anime_id = animelist_h.anime_id)
-  GROUP BY anime_h.anime_id
-  HAVING cnth >= 1000) high
+  GROUP BY anime_h.anime_id) high
 
   LEFT OUTER JOIN
 
@@ -34,8 +33,7 @@ FROM
 	  (SELECT MAL_ID anime_id,Japanese_name title
 	   FROM anime) anime_l
 	   ON anime_l.anime_id = animelist_l.anime_id)
-  GROUP BY anime_l.anime_id
-  HAVING cntl >= 1000) low
+  GROUP BY anime_l.anime_id) low
 
   ON high.anime_id = low.anime_id)
 

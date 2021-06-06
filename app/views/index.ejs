@@ -127,7 +127,7 @@
 								</div>
 							</article>
 
-							<%for(var i=0;i<1000;i++){%>
+							<%for(var i=0;i<100;i++){%>
 								<%var id="add_comment_2_"+anime[i].id%>
 								<article id=<%=id%>>
 									<form name="register" method="post" action="/apis/add_comment" autocomplete="off">
@@ -263,6 +263,11 @@
 								<p><a href="#s21">我們將使用者的極端值，用Completed數(感覺可以多考慮dropped率)作為切分依據，然後對於某一部動畫，我們將這些人的評價篩選掉，重新計算分數作為校正分數</a></p>
 								<p><a href="#s22">看每季(年?)某工作室的作品產量，比較產量多與少的時期的平均分數，驗證是否做的多品質就會下滑</a></p>
 								<p><a href="#s23">Score高分但dropped rate高?</a></p>
+								<h3 class="major">for fun</h3>
+								<p><a href="#s24">涼宮春日真的引領了輕改動畫風潮嗎?</a></p>
+								<p><a href="#s25">J.C. staff的評價真的那麼糟嗎?</a></p>
+								<p><a href="#s26">列出J.C. staff各年評價最好的動畫</a></p>
+								<p><a href="#s27">EVA真的是20世紀的最強動畫嗎?</a></p>
 							</article>
 
 							<article id="s1">
@@ -667,7 +672,7 @@
                       <label for="year">years</label>
 											<select name="year" id="year">
 												<option value="">-</option>
-												<%for(var i=1917;i<2022;i++){%>
+												<%for(var i=2021;i>1916;i--){%>
 													<option value=<%=i%>><%=i%></option>
 												<%}%>
 											</select>
@@ -876,6 +881,66 @@
 							<article id="s23">
 								<h2 class="major">Score高分但dropped rate高?</h2>
 								<form name="s23" method="post" action="/apis/s23" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><a href="#search" class="button">back</a></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s24">
+								<h2 class="major">涼宮春日真的引領了輕改動畫風潮嗎?</h2>
+								<form name="s24" method="post" action="/apis/s24" autocomplete="off">
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><a href="#search" class="button">back</a></li>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s25">
+								<h2 class="major">J.C. staff的評價真的那麼糟嗎?</h2>
+								<form name="s25" method="post" action="/apis/s25" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="studio">studio</label>
+                      <input type="text" name="studio" placeholder="studio" id="studio">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==27){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s26">
+								<h2 class="major">列出J.C. staff各年評價最好的動畫</h2>
+								<form name="s26" method="post" action="/apis/s26" autocomplete="off">
+									<div class="fields">
+										<div class="field half">
+                      <label for="studio">studio</label>
+                      <input type="text" name="studio" placeholder="studio" id="studio">
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" class="primary"></li>
+										<li><input type="reset" value="Reset"></li>
+										<li><a href="#search" class="button">back</a></li>
+										<%if(errorType==28){%>
+											<li><label style="color: red;display: block;font-size: 0.8rem;font-weight: 300;letter-spacing: 0.2rem;line-height: 1.5;margin-top: 0.8rem;text-transform: lowercase;">illegal input</label></li>
+										<%}%>
+									</ul>
+								</form>
+							</article>
+
+							<article id="s27">
+								<h2 class="major">EVA真的是20世紀的最強動畫嗎?</h2>
+								<form name="s27" method="post" action="/apis/s27" autocomplete="off">
 									<ul class="actions">
 										<li><input type="submit" class="primary"></li>
 										<li><a href="#search" class="button">back</a></li>

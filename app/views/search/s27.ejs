@@ -31,25 +31,26 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">各年齡層的平均分數</h2>
+							<h2 class="major">EVA真的是20世紀的最強動畫嗎?</h2>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
 								<li><a href="/#search" class="button">back</a></li>
               </ul>
 							<%if(!rows){%>
 								<p>no result</p>
-							<%}else if(rows.length==0||rows[0].avg_score==null){%>
+							<%}else if(rows.length==0){%>
 								<p>no result</p>
 							<%}else{%>
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th>average score</th></tr>
+											<tr><th>Anime</th><th>score</th></tr>
 										</thead>
 										<tbody>
 											<%for(var i=0;i<rows.length;i++){%>
 												<tr>
-													<td><%=rows[i].avg_score%></td>
+													<td><%=rows[i].Japanese_name%></td>
+													<td><%=rows[i].Score%></td>
 												</tr>
 											<%}%>
 										</tbody>

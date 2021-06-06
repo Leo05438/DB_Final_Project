@@ -31,25 +31,26 @@
 					<div id="main">
 
 						<article id="search">
-							<h2 class="major">各年齡層的平均分數</h2>
+							<h2 class="major">涼宮春日真的引領了輕改動畫風潮嗎?</h2>
 							<ul class="actions">
                 <li><a href="/" class="button">home page</a></li>
 								<li><a href="/#search" class="button">back</a></li>
               </ul>
 							<%if(!rows){%>
 								<p>no result</p>
-							<%}else if(rows.length==0||rows[0].avg_score==null){%>
+							<%}else if(rows.length==0){%>
 								<p>no result</p>
 							<%}else{%>
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
-											<tr><th>average score</th></tr>
+											<tr><th>year</th><th>number</th></tr>
 										</thead>
 										<tbody>
 											<%for(var i=0;i<rows.length;i++){%>
 												<tr>
-													<td><%=rows[i].avg_score%></td>
+													<td><%=rows[i].year%></td>
+													<td><%=rows[i].cnt%></td>
 												</tr>
 											<%}%>
 										</tbody>

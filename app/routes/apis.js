@@ -700,5 +700,33 @@ router.post('/s23',function(req,res,next){
     query:req.body
   }));
 });
-
+router.post('/s24',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s24',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s25',function(req,res,next){
+  console.log("yeeeee");
+  res.redirect(url.format({
+    pathname:'/s25',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s26',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s26',
+    hash:'search',
+    query:req.body
+  }));
+});
+router.post('/s27',function(req,res,next){
+  res.redirect(url.format({
+    pathname:'/s27',
+    hash:'search',
+    query:req.body
+  }));
+});
 module.exports = router;

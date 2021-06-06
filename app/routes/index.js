@@ -10,12 +10,15 @@ router.get('/', function(req, res, next) {
   }
   req.con.query('SELECT * FROM userPassword WHERE user=?',req.session.user,function(err,password){
     req.con.query('SELECT * FROM users_cleaned WHERE username=?',req.session.user,function(err,user){
-      req.con.query('SELECT Japanese_name name,MAL_ID id FROM anime',function(err,anime){
+      req.con.query('SELECT Japanese_name name,MAL_ID id FROM anime LIMIT 1000',function(err,anime){
         req.con.query('SELECT * FROM comment WHERE username=?',req.session.user,function(err,comment){
-          var errorType=req.session.errorType;
-          req.session.errorType=-1;
-          res.render('index',{password:password,user:user,anime:anime,errorType:errorType,comment:comment});
-          return;
+          var sql="WITH tmp4 AS ( WITH tmp3 AS ( WITH tmp2 AS ( WITH tmp1 AS ( WITH tmp AS ( WITH t AS ( SELECT anime_id FROM comment WHERE username = ? ORDER BY score DESC LIMIT 10 ) SELECT Genders FROM anime WHERE MAL_id IN ( SELECT anime_id FROM t ) ) SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(tmp.Genders,\',\', b.help_topic_id + 1),\',\',-1) AS TYPE FROM tmp JOIN mysql.help_topic b ON b.help_topic_id < (LENGTH(tmp.Genders) - LENGTH(REPLACE(tmp.Genders,\',\',\'\')) + 1) ) SELECT TYPE, COUNT(TYPE) AS CNT FROM tmp1 GROUP BY TYPE ORDER BY CNT DESC LIMIT 7 ) SELECT MAL_ID, Score, Genders, tmp2.TYPE, tmp2.CNT AS CNT FROM anime, tmp2 WHERE Genders LIKE CONCAT(\"%\",tmp2.TYPE,\"%\") AND Score > 3 ) SELECT MAL_ID, Score * SUM(CNT) AS S FROM tmp3 GROUP BY MAL_ID ORDER BY S DESC LIMIT 100 ) SELECT anime.Japanese_name, anime.Genders, anime.Score FROM anime, tmp4 WHERE anime.MAL_ID = tmp4.MAL_ID";
+          req.con.query(sql,req.session.user,function(err,recommendation){
+            var errorType=req.session.errorType;
+            req.session.errorType=-1;
+            res.render('index',{password:password,user:user,anime:anime,errorType:errorType,comment:comment,recommendation:recommendation});
+            return;
+          });
         });
       });
     });

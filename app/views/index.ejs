@@ -109,13 +109,16 @@
 
 							<article id="add_comment_1">
 								<h2 class="major">anime list</h2>
+								<ul class="actions">
+	                <li><a href="#comment" class="button">back</a></li>
+	              </ul>
 								<div class="table-wrapper">
 									<table>
 										<thead>
 											<tr><th>Anime List</th></tr>
 										</thead>
 										<tbody>
-											<%for(var i=0;i<anime.length;i++){%>
+											<%for(var i=0;i<100;i++){%>
 												<%var url="#add_comment_2_"+anime[i].id%>
 						            <tr><td><a href=<%=url%>><%=anime[i].name%></a></td></tr>
 					            <%}%>
@@ -124,7 +127,7 @@
 								</div>
 							</article>
 
-							<%for(var i=0;i<100;i++){%>
+							<%for(var i=0;i<1000;i++){%>
 								<%var id="add_comment_2_"+anime[i].id%>
 								<article id=<%=id%>>
 									<form name="register" method="post" action="/apis/add_comment" autocomplete="off">
@@ -893,12 +896,33 @@
 
 					</div>
           <footer id="footer">
-            <article id="recommendation" style="margin-top: 10rem;">
+            <article id="recommendation" style="margin-top: 4rem;">
 							<h2 class="major">recommendation</h2>
               <ul class="actions">
                 <li><a href="#" class="button">home page</a></li>
               </ul>
-							<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
+							<%if(!recommendation){%>
+								<p>no result</p>
+							<%}else if(recommendation.length==0){%>
+								<p>no result</p>
+							<%}else{%>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr><th>anime</th><th>genre</th><th>score</th></tr>
+										</thead>
+										<tbody>
+											<%for(var i=0;i<recommendation.length;i++){%>
+												<tr>
+													<td><%=recommendation[i].Japanese_name%></td>
+													<td><%=recommendation[i].Genders%></td>
+													<td><%=recommendation[i].Score%></td>
+												</tr>
+											<%}%>
+										</tbody>
+									</table>
+								</div>
+							<%}%>
 						</article>
           </footer>
 

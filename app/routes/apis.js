@@ -41,8 +41,8 @@ router.post('/register',function(req,res,next){
         location:0,
         birth_date:req.body.birth_date+" 00:00:00",
         access_rank:0,
-        join_date:"2000-12-13",
-        last_online:"2000-12-13",
+        join_date:NULL,
+        last_online:NULL,
         stats_mean_score:0,
         stats_rewatched:0,
         stats_episodes:0
@@ -133,14 +133,14 @@ router.post('/add_comment',function(req,res,next){
       anime_id:req.body.anime_id,
       anime_name:req.body.anime_name,
       episodes:req.body.episodes,
-      start_date:"2000-12-13",
-      finish_date:"2000-12-13",
+      start_date:NULL,
+      finish_date:NULL,
       score:req.body.score,
       status:req.body.status,
       rewatching:0,
       rewatching_ep:0,
       last_updated_9:0,
-      last_updated_c:"2000-12-13 00:00:00",
+      last_updated_c:NULL,
       tags:0
     };
     req.con.query('INSERT INTO comment SET ?',data,function(err,rows){
@@ -148,13 +148,13 @@ router.post('/add_comment',function(req,res,next){
         username:req.session.user,
         anime_id:req.body.anime_id,
         my_watch_episodes:req.body.episodes,
-        my_start_date:"2000-12-13",
-        my_finish_date:"2000-12-13",
+        my_start_date:NULL,
+        my_finish_date:NULL,
         my_score:req.body.score,
         my_status:req.body.status,
         my_rewatching:0,
         my_rewatching_ep:0,
-        my_last_updated:"2000-12-13 00:00:00",
+        my_last_updated:NULL,
         my_tags:0
       };
       req.con.query('INSERT INTO animelist_cleaned SET ?',data,function(err,rows){
@@ -540,6 +540,10 @@ router.post('/edit_comment',function(req,res,next){
 });
 
 router.post('/s1',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s1',
     hash:'search',
@@ -547,6 +551,10 @@ router.post('/s1',function(req,res,next){
   }));
 });
 router.post('/s2',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s2',
     hash:'search',
@@ -554,6 +562,10 @@ router.post('/s2',function(req,res,next){
   }));
 });
 router.post('/s3',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s3',
     hash:'search',
@@ -561,6 +573,10 @@ router.post('/s3',function(req,res,next){
   }));
 });
 router.post('/s4',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s4',
     hash:'search',
@@ -568,6 +584,10 @@ router.post('/s4',function(req,res,next){
   }));
 });
 router.post('/s5',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s5',
     hash:'search',
@@ -575,6 +595,10 @@ router.post('/s5',function(req,res,next){
   }));
 });
 router.post('/s6',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s6',
     hash:'search',
@@ -582,6 +606,10 @@ router.post('/s6',function(req,res,next){
   }));
 });
 router.post('/s7',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s7',
     hash:'search',
@@ -589,6 +617,10 @@ router.post('/s7',function(req,res,next){
   }));
 });
 router.post('/s8',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s8',
     hash:'search',
@@ -596,6 +628,10 @@ router.post('/s8',function(req,res,next){
   }));
 });
 router.post('/s9',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s9',
     hash:'search',
@@ -603,6 +639,10 @@ router.post('/s9',function(req,res,next){
   }));
 });
 router.post('/s10',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s10',
     hash:'search',
@@ -610,6 +650,10 @@ router.post('/s10',function(req,res,next){
   }));
 });
 router.post('/s11',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s11',
     hash:'search',
@@ -617,6 +661,10 @@ router.post('/s11',function(req,res,next){
   }));
 });
 router.post('/s12',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s12',
     hash:'search',
@@ -624,6 +672,10 @@ router.post('/s12',function(req,res,next){
   }));
 });
 router.post('/s13',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s13',
     hash:'search',
@@ -631,6 +683,10 @@ router.post('/s13',function(req,res,next){
   }));
 });
 router.post('/s14',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s14',
     hash:'search',
@@ -638,6 +694,10 @@ router.post('/s14',function(req,res,next){
   }));
 });
 router.post('/s15',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s15',
     hash:'search',
@@ -645,6 +705,10 @@ router.post('/s15',function(req,res,next){
   }));
 });
 router.post('/s16',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s16',
     hash:'search',
@@ -652,6 +716,10 @@ router.post('/s16',function(req,res,next){
   }));
 });
 router.post('/s17',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s17',
     hash:'search',
@@ -659,6 +727,10 @@ router.post('/s17',function(req,res,next){
   }));
 });
 router.post('/s18',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s18',
     hash:'search',
@@ -666,6 +738,10 @@ router.post('/s18',function(req,res,next){
   }));
 });
 router.post('/s19',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s19',
     hash:'search',
@@ -673,6 +749,10 @@ router.post('/s19',function(req,res,next){
   }));
 });
 router.post('/s20',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s20',
     hash:'search',
@@ -680,6 +760,10 @@ router.post('/s20',function(req,res,next){
   }));
 });
 router.post('/s21',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s21',
     hash:'search',
@@ -687,6 +771,10 @@ router.post('/s21',function(req,res,next){
   }));
 });
 router.post('/s22',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s22',
     hash:'search',
@@ -694,6 +782,10 @@ router.post('/s22',function(req,res,next){
   }));
 });
 router.post('/s23',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s23',
     hash:'search',
@@ -701,6 +793,10 @@ router.post('/s23',function(req,res,next){
   }));
 });
 router.post('/s24',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s24',
     hash:'search',
@@ -708,6 +804,10 @@ router.post('/s24',function(req,res,next){
   }));
 });
 router.post('/s25',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   console.log("yeeeee");
   res.redirect(url.format({
     pathname:'/s25',
@@ -716,6 +816,10 @@ router.post('/s25',function(req,res,next){
   }));
 });
 router.post('/s26',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s26',
     hash:'search',
@@ -723,6 +827,10 @@ router.post('/s26',function(req,res,next){
   }));
 });
 router.post('/s27',function(req,res,next){
+  if(!req.session.signIned){
+    res.redirect('/');
+    return;
+  }
   res.redirect(url.format({
     pathname:'/s27',
     hash:'search',
